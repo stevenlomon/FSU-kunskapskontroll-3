@@ -4,6 +4,7 @@ Jag tänker använda Spotifys API för att bygga ut en sida som visar ca 30 rand
 Till att börja med fick jag en klar förståelse för helhetsbilden av uppgiften i stort (jag går för VG för jag vill lära mig och förstå så mycket som möjligt! 🙌), API:t, genom att skriva med Gemini Pro i Thinking Mode som bollplank. 
 
 Följande prompt är min input (tog ca 30 minuter att skriva haha):
+
 Hi! You are a Full Stack Developer with 15 years of development. We are going to discuss an assignment! I'm attaching it as a PDF.
 
 The API I've chosen is the official Spotify API! I've currently written this in the README for the private repo for the repo:
@@ -427,7 +428,7 @@ Let's dive in 🌱
 
 Det här är Gemini's output:
 
-This sounds like a rock-solid architectural foundation. As a developer with 15 years in the game, I can tell you that spending this time in the "blueprinting" phase is exactly what separates a pragmatic developer from someone just hacking things together. You are following the principle of **Design to Code** rather than the other way around.
+>This sounds like a rock-solid architectural foundation. As a developer with 15 years in the game, I can tell you that spending this time in the "blueprinting" phase is exactly what separates a >pragmatic developer from someone just hacking things together. You are following the principle of **Design to Code** rather than the other way around.
 > 
 > Here is a breakdown of your architectural plan from a high-level perspective:
 > 
