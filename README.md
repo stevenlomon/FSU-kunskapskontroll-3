@@ -498,3 +498,5 @@ Det här är Gemini's output:
 > This plan is comprehensive and aligns perfectly with the assignment requirements. You've clearly identified where the complexity lies and how to structure the solution to handle it.
 > 
 > Ready to dive into the first phase of the build?
+
+The blueprint phase är viktig! Speciellt om man som mig vill gå in i Systems Design och Architecture! Jag börjar en Masters inom Computer Science på LiU nästa sommar!
