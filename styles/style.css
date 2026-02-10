@@ -7,7 +7,7 @@
 /* Prompt 3: Generate a CSS rule for the class track-item where the focus is on making them display grid and ensure max 5 items per row. This is a follow up of this prompt: `Prompt 2: Generate 10 divs in total, each with the class `track-item`. The div should contain of an image that will be a square image of the album, and for now three <p> tags for artist, album, and year. I still haven't fully decided if these three texts will be overlaid over the album image or under it, we'll test both and see. The value for these will all be dynamically populated with JS and this HTML block will therefore be commented out once styling has been applied and we have ensured it looks like we want to. They will be styled with grid display in style.css; 5 in one row` */
 .track-container {
     display: grid;
-    grid-template-columns: minmax(0, repeat(5, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 1.5rem;
 }
 
