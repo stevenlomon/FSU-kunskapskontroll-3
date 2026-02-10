@@ -40,7 +40,24 @@ const buildPageUrl = (baseUrl: string, query: string, type: string, limit: numbe
 
 // --- Routes ---
 
-app.get('/search', (req: Request, res: Response) => {
+// NOTE: Added 'async' here to allow for the await/delay
+app.get('/search', async (req: Request, res: Response) => {
+  
+  // ---------------------------------------------------------
+  // REALITY TWISTER: Network Lag Simulation
+  // "Prototype to Learn" - Simulating slow 3G/Vinyl Loading
+  // ---------------------------------------------------------
+  const minDelay = 3000; // 3 seconds
+  const maxDelay = 6000; // 6 seconds
+  const delay = Math.floor(Math.random() * (maxDelay - minDelay + 1) + minDelay);
+
+  console.log(`[Simulation] 🐢 Spinning the vinyl... delaying response by ${delay}ms`);
+  
+  // The Non-Blocking Sleep (pauses this request, but keeps server alive for others)
+  await new Promise(resolve => setTimeout(resolve, delay));
+  // ---------------------------------------------------------
+
+
   // 1. Parse Query Parameters
   // "Design by Contract": We expect specific types, fallback to defaults if missing
   const q = req.query.q as string;

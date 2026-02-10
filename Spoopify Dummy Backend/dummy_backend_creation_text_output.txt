@@ -171,3 +171,45 @@ Why these rules?
 node_modules/: We ignore this because anyone who clones your repo can simply run npm install to regenerate it based on your package.json. It violates the DRY principle to commit dependencies that are already defined in the package file.
 
 dist/: This is where TypeScript compiles your code into JavaScript. Since we can always regenerate it from the source (.ts files), we don't commit it.
+
+This is an excellent application of the "Prototype to Learn" principle from The Pragmatic Programmer. By controlling the environment (the backend), you can rigorously test the UX (the vinyl spinner) under controlled "lag" conditions without relying on a flaky real-world internet connection.
+
+In Node.js/TypeScript, we cannot use a blocking sleep (like Python's time.sleep()) because it would freeze the entire server for everyone. Instead, we use a Promise-based delay.
+
+Here is how to modify your server.ts file.
+
+Step 1: Update the Route Signature
+You need to change the function from a standard function to an async function so we can pause execution without blocking the server.
+
+Step 2: Add the "Reality Twister" Code
+Paste this code block at the very top of your app.get('/search', ...) handler, right before you parse the query parameters.
+
+TypeScript
+// server.ts
+
+// ... imports and setup ...
+
+// NOTICE the 'async' keyword added here!
+app.get('/search', async (req: Request, res: Response) => {
+  
+  // --- REALITY TWISTER (Simulate Network Lag) ---
+  // Random delay between 3000ms (3s) and 6000ms (6s)
+  const minDelay = 3000;
+  const maxDelay = 6000;
+  const delay = Math.floor(Math.random() * (maxDelay - minDelay + 1) + minDelay);
+
+  console.log(`[Simulation] 🐢 Spinning the vinyl... delaying response by ${delay}ms`);
+  
+  // The Non-Blocking "Sleep"
+  await new Promise(resolve => setTimeout(resolve, delay));
+  // ----------------------------------------------
+
+  // ... The rest of your code (Parsing Q, Validation, etc.) ...
+  const q = req.query.q as string;
+  // ...
+Why this is "Pragmatic"
+In The Pragmatic Programmer, this is related to "Tracer Bullets". You are firing a tracer (the mock backend) to verify the target (the UX animation) works as expected.
+
+Once you are done developing the loading animation, you can simply comment out that block (or set maxDelay to 0) to return to "instant" speed.
+
+Save the file, and the server will restart automatically (if using nodemon) or just stop/start it again with npm start to see the delay in action!
