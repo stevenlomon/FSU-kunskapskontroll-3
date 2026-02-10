@@ -512,3 +512,4 @@ Spotify tillåter inte en att skapa appar hos de för tillfället 🙃 Se bild 1
 <img width="2880" height="1720" alt="Screenshot from 2026-02-10 13-37-31" src="https://github.com/user-attachments/assets/2f4ff2c9-b7a6-42a8-897f-8b048d7127dd" />
 Beautiful 🌱✨
 
+All kod i PR#1 är skrivet i Antigravity
