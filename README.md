@@ -499,4 +499,7 @@ Det här är Gemini's output:
 > 
 > Ready to dive into the first phase of the build?
 
-The blueprint phase är viktig! Speciellt om man som mig vill gå in i Systems Design och Architecture! Jag börjar en Masters inom Computer Science på LiU nästa sommar!
+The blueprint phase är viktig! Speciellt om man som mig vill gå in i Systems Design och Architecture! Och jag ska börja en Masters-utbildning inom Computer Science på LiU nästa sommar!
+
+## Dag 2
+Spotify tillåter inte en att skapa appar hos de för tillfället 🙃 Se bild 1. Jag litar på, efter att ha läst texten på bild 2, att jag kommer kunna göra det imorgon 11 feb. Tillsvidare! Kommer jag skapa en egen dummy backend. Jag kommer ge 5 stycken AI-byggda Python FastAPI Backends som jag byggt senaste året för Gemini to model, samt hur datan från Spotify's riktiga API ser ut. Detta är inte del av uppgiften alls så det kommer bli en enda prompt och jag accepterar *helt* att det blir potentiellt AI slop. Den behöver inte vara secure över huvud taget, jag kopplar till den lokalt över localhost. Mina Python Backends ligger i en mapp nu och min prompt kommer ligga i sin egna txt fil. Min Dummy backend kommer skrivas i TS så får jag se hur det ser ut. Jag försökte att sätta mig in i TypeScript och att skriva om ClarityTracking Backenden i TS förra året men nothing that stuck around. Ser fram emot att göra det i år; skriva om alla dessa Python Backends i TS och faktiskt sätta mig in i och förstå de djutp!
