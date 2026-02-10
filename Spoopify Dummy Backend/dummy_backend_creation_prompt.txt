@@ -1,0 +1,247 @@
+Hi! You are a senior backend developer with 15 years of experience. 
+
+I have attached 5 of my own Python Backends for you to model; synthesize these in the creation of a Spotify dummy backend (since they don't allow app creation from their dashboard at the moment, will most likely be fixed tomorrow! "Starting Wednesday, 11 February, all newly created Development Mode Client IDs will be created under the updated Development Mode rules and will have the following restrictions applied by default:")
+
+Temporarily don't focus on security at all since this will all be over localhost, this will not be run on a server. This is purely for a student assignment project, not to be run in production. 
+
+Instead put all your CPU in focusing on making it as aligned with how the data output from the real Spotify API is. I will attach excerpts from how the data looks at the end of this prompt. 
+
+
+
+The Backend is also to be written in TypeScript! So put just as much focus on the bridge and translation from Python to TS!
+
+I am also attaching The Pragmatic Programmer. Implement the paradigms and principles in this book whenever possible
+
+
+
+We are only interested in the Search endpoint for now and only in `tracks` as type. Here are excerpts from the real API:
+
+###
+
+Search for Item
+
+
+
+OAuth 2.0
+
+Get Spotify catalog information about albums, artists, playlists, tracks, shows, episodes or audiobooks that match a keyword string. Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
+
+
+
+Important policy note
+
+Spotify content may not be used to train machine learning or AI model
+
+Request
+
+GET
+
+/search
+
+q
+
+string
+
+Required
+
+Your search query.
+
+You can narrow down your search using field filters. The available filters are album, artist, track, year, upc, tag:hipster, tag:new, isrc, and genre. Each field filter only applies to certain result types.
+
+The artist and year filters can be used while searching albums, artists and tracks. You can filter on a single year or a range (e.g. 1955-1960).
+
+The album filter can be used while searching albums and tracks.
+
+The genre filter can be used while searching artists and tracks.
+
+The isrc and track filters can be used while searching tracks.
+
+The upc, tag:new and tag:hipster filters can only be used while searching albums. The tag:new filter will return albums released in the past two weeks and tag:hipster can be used to return only albums with the lowest 10% popularity.
+
+Example: q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis
+
+type
+
+array of strings
+
+Required
+
+A comma-separated list of item types to search across. Search results include hits from all the specified item types. For example: q=abacab&type=album,track returns both albums and tracks matching "abacab".
+
+Allowed values: "album", "artist", "playlist", "track", "show", "episode", "audiobook"
+
+market
+
+string
+
+An ISO 3166-1 alpha-2 country code. If a country code is specified, only content that is available in that market will be returned.
+
+If a valid user access token is specified in the request header, the country associated with the user account will take priority over this parameter.
+
+Note: If neither market or user country are provided, the content is considered unavailable for the client.
+
+Users can view the country that is associated with their account in the account settings.
+
+Example: market=ES
+
+limit
+
+integer
+
+The maximum number of results to return in each item type.
+
+Default: limit=20
+
+Range: 0 - 50
+
+Example: limit=10
+
+offset
+
+integer
+
+The index of the first result to return. Use with limit to get the next page of search results.
+
+Default: offset=0
+
+Range: 0 - 1000
+
+Example: offset=5
+
+include_external
+
+string
+
+If include_external=audio is specified it signals that the client can play externally hosted audio content, and marks the content as playable in the response. By default externally hosted audio content is marked as unplayable in the response.
+
+Allowed values: "audio"
+
+
+
+tracks
+
+object
+
+href
+
+string
+
+Required
+
+A link to the Web API endpoint returning the full result of the request
+
+Example: "https://api.spotify.com/v1/me/shows?offset=0&limit=20"
+
+limit
+
+integer
+
+Required
+
+The maximum number of items in the response (as set in the query or by default).
+
+Example: 20
+
+next
+
+string
+
+Required
+
+Nullable
+
+URL to the next page of items. ( null if none)
+
+Example: "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+
+offset
+
+integer
+
+Required
+
+The offset of the items returned (as set in the query or by default)
+
+Example: 0
+
+previous
+
+string
+
+Required
+
+Nullable
+
+URL to the previous page of items. ( null if none)
+
+Example: "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+
+total
+
+integer
+
+Required
+
+The total number of items available to return.
+
+Example: 4
+
+
+
+items
+
+array of TrackObject
+
+Required
+
+###
+Here is the items array in the response:
+"items
+array of SimplifiedPlaylistObject
+Required
+collaborative
+boolean
+true if the owner allows other users to modify the playlist.
+description
+string
+The playlist description. Only returned for modified, verified playlists, otherwise null.
+
+external_urls
+object
+Known external URLs for this playlist.
+href
+string
+A link to the Web API endpoint providing full details of the playlist.
+id
+string
+The Spotify ID for the playlist.
+
+images
+array of ImageObject
+Images for the playlist. The array may be empty or contain up to three images. The images are returned by size in descending order. See Working with Playlists. Note: If returned, the source URL for the image (url) is temporary and will expire in less than a day.
+name
+string
+The name of the playlist.
+
+owner
+object
+The user who owns the playlist
+public
+boolean
+The playlist's public/private status (if it is added to the user's profile): true the playlist is public, false the playlist is private, null the playlist status is not relevant. For more about public/private status, see Working with Playlists
+snapshot_id
+string
+The version identifier for the current playlist. Can be supplied in other requests to target a specific playlist version
+
+tracks
+object
+A collection containing a link ( href ) to the Web API endpoint where full details of the playlist's tracks can be retrieved, along with the total number of tracks in the playlist. Note, a track object may be null. This can happen if a track is no longer available.
+type
+string
+The object type: "playlist"
+uri
+string
+The Spotify URI for the playlist."
+And let's also set the scope. I am only iterested in extracting album, artists, duration_ms, explicit and name. id will be used for the API calls
+
+Once you've written the backend, write a dummy db as a simple JSON object with 100 dummy tracks following the same data models

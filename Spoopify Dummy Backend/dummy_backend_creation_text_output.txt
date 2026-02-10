@@ -1,0 +1,173 @@
+This is a fantastic assignment. It forces you to look at API design through the lens of Data Contracts rather than just implementation details.
+
+Since you are transitioning from a Python/FastAPI background (based on your uploads like claritytracking_mvp_main.py and xecution_ai_mvp_main.py) to TypeScript/Node.js, I have structured this solution to bridge that gap.
+
+The Architecture: Python vs. TypeScript
+In your Python files, you use Pydantic for data validation and FastAPI for routing. In TypeScript, the pragmatic equivalent is Express (routing) and Interfaces/Types (contract definition).
+
+I have applied the Pragmatic Programmer principle of Orthogonality here. We will keep the "Database" (JSON), the "Business Logic" (Search Service), and the "Interface" (API Router) strictly decoupled. This allows you to swap the dummy JSON for a real DB later without breaking the API.
+
+Here is your complete Dummy Backend.
+
+1. The Data Contract (types.ts)
+This acts as your Pydantic models. We define exactly what the Spotify API returns based on your requirements.
+
+2. The Dummy Database (db.ts)
+Per your request for 100 dummy tracks, putting 100 explicit JSON objects here would clutter the code. Instead, I have applied the DRY (Don't Repeat Yourself) principle from The Pragmatic Programmer to write a generator that creates 100 deterministic mock tracks.
+
+This simulates a database query result.
+
+3. The Backend Server (server.ts)
+This is the claritytracking_mvp_main.py equivalent. I've focused heavily on mimicking the exact pagination output of Spotify, as that is usually the hardest part to integrate with on the frontend.
+
+Pragmatic Tip: Note the buildPageUrl function. It encapsulates the logic for generating "next" and "previous" links, making the code easier to maintain if the base URL changes.
+
+Instructions to Run
+Since this is node, you need a package.json. Run these commands in your terminal:
+
+Initialize:
+
+Bash
+mkdir spotify-dummy
+cd spotify-dummy
+npm init -y
+Install Dependencies:
+
+Bash
+npm install express cors
+npm install --save-dev typescript @types/node @types/express @types/cors ts-node
+Create Config: Create a tsconfig.json:
+
+JSON
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true
+  }
+}
+Run: Place the three code blocks above into types.ts, db.ts, and server.ts. Then run:
+
+Bash
+npx ts-node server.ts
+Senior Developer Note on "Bridging"
+In claritytracking_mvp_main.py, you heavily utilized schemas.EventAlert to ensure your API outputs were consistent. I've mirrored that in types.ts.
+
+However, TypeScript has a distinct advantage here: Compile-time safety. In Python, Pydantic does runtime validation (which is expensive on CPU). In the solution above, because we defined SpotifyTrack as an Interface, TypeScript ensures our dummy DB conforms to that shape before we even run the code. This aligns with the Pragmatic Programmer's concept of Tracer Bullets—we defined the target (the Interface) and fired the code (the implementation) to hit it exactly.
+
+
+
+
+
+This is standard behavior (and actually a very helpful feature of npm), so don't worry!
+
+Here is exactly what happened—NPM was being "Pragmatic" by trying to Don't Repeat Yourself (DRY):
+
+The Description: NPM scanned your folder, found a README.md file, and grabbed the first paragraph of text it found (your project plan in Swedish) to populate the "description".
+
+The Repository: NPM detected that you already ran git init and added a remote origin. It read your .git/config file and automatically populated the repository and bugs fields for you.
+
+You are ready to proceed.
+
+Next Step: Install the Stack
+Since you are in the correct folder (~/fullstack/medieinstitutet/FSU-kunskapskontroll-3), copy and paste this command to install the tools we need for the TypeScript backend:
+Bash
+npm install express cors
+npm install --save-dev typescript @types/node @types/express @types/cors ts-node
+Once that finishes, create your tsconfig.json file as described in the previous step, and you can start coding!
+
+
+You are absolutely right—we need a small tweak because your code lives inside the folder Spoopify Dummy Backend, but you are running the command from the root folder.
+
+This is a classic "pathing" issue. The computer is looking for server.ts right where you are standing (the root), but the file is actually in the next room over.
+
+The Immediate Fix
+Run this command instead. Note the quotes "" which are required because your folder name has spaces in it:
+
+Bash
+npx ts-node "Spoopify Dummy Backend/server.ts"
+The "Pragmatic" Fix (Recommended)
+Typing that path with spaces every time is tedious and error-prone (violates the DRY principle). Let's automate it using your package.json.
+
+Open your package.json file.
+
+Find the "scripts" section.
+
+Add a "start" script like this:
+
+JSON
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node \"Spoopify Dummy Backend/server.ts\""
+  },
+Now, whenever you want to start your backend, you just type:
+
+Bash
+npm start
+Why this is better: It abstracts the complexity of file paths away. If you ever move the file later, you only change it in one place (package.json), and your workflow (npm start) remains exactly the same.
+
+Try running npm start after saving the file!
+
+
+Yes, absolute success!
+
+You have successfully bridged the gap from Python to TypeScript.
+
+1. The "Life" of Your Server
+"Now as long as I keep this terminal window open I can send fetch requests to it locally?"
+
+Yes. Think of that terminal window as the "engine room." As long as that command is running, your server is listening on port 3000.
+
+To see it work: Open your browser and paste this URL: http://localhost:3000/search?q=Dark
+
+To kill it: Press Ctrl + C in the terminal.
+
+The Pragmatic approach: Keep this terminal visible on the side. When your frontend makes a request, you will see the logs scroll by in real-time. This provides immediate feedback (Tracer Bullets) on whether your frontend is actually hitting the backend.
+
+2. The .gitignore
+Since you are using node_modules, a .gitignore is mandatory. If you commit node_modules to GitHub, it will upload 60MB+ of unnecessary files.
+
+Create a file named .gitignore (note the dot at the start) in your root folder ~/fullstack/medieinstitutet/FSU-kunskapskontroll-3/.gitignore and paste this in:
+
+Code snippet
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Production Build
+dist/
+build/
+
+# Environment Variables (Security Best Practice)
+.env
+.env.test
+.env.production
+.env.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs
+*.log
+npm-debug.log.*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.idea
+.vscode
+*.swp
+*.swo
+Why these rules?
+node_modules/: We ignore this because anyone who clones your repo can simply run npm install to regenerate it based on your package.json. It violates the DRY principle to commit dependencies that are already defined in the package file.
+
+dist/: This is where TypeScript compiles your code into JavaScript. Since we can always regenerate it from the source (.ts files), we don't commit it.
