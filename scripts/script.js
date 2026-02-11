@@ -106,6 +106,9 @@ mainContainer.addEventListener('click', async (e) => {
         }
     }
 
+    // TRACE: Did we click 'Go Back'?
+    // Prompt 15: If the id of e.target is 'back-btn', retrieve the initial list we cached with init and re-render it.
+
 });
 
 // "Power on" our Full Stack app
