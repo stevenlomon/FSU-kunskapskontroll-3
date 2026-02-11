@@ -8,6 +8,8 @@ const DataStore = {
         return JSON.parse(localStorage.getItem('trackData')) || [];
     },
 
+    // Prompt 7: Write a method like the one above called saveTracksToStorage that takes a list and saves it to localStorage under 'trackData' using JSON stringify
+
     setTracks(tracks) {
         this.allTracks = tracks;
     },
