@@ -34,7 +34,7 @@ const ViewRenderer = {
         const tracksHTML = tracks.map(track => `
             <div class="track-item" data-id="${track.id}">
                 <img src="${track.album.images[0].url}" alt="Album Cover">
-                <p>${track.name}</p>
+                <p><strong>${track.name}</strong></p>
                 <p>${track.artists[0].name}</p>
                 <p>${track.album.name}</p>
                 <p>${track.album.release_date.substring(0,4)}</p>
