@@ -98,7 +98,7 @@ mainContainer.addEventListener('click', async (e) => {
     if (trackCard) {
         const trackId = trackCard.dataset.id;
         try {
-            const track = await fetchTrackById(trackId);
+            const track = await fetchById(trackId);
             ViewRenderer.renderDetailed(track);
         } catch (error) {
             console.error('Error fetching track details:', error); // We'll return to how we render errors
