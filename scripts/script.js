@@ -89,7 +89,11 @@ async function init() {
     }
 }
 
-// Prompt 14 to be added here
+mainContainer.addEventListener('click', async (e) => {
+    // What did we click?
+    // TRACE: Did we click 'Read More'?
+    // Prompt 14: First, create a const variable trackCard using e.target, closest and the track-item class. Then, write the first click case: if we have a trackCard, create a pointer using dataset.id followed by a try/catch that fetches the track by id and renders it usign renderDetailed. Fall back to List view on error and handle the error gracefully. 
+});
 
 // "Power on" our Full Stack app
 window.addEventListener("DOMContentLoaded", init);
