@@ -52,7 +52,6 @@ const ViewRenderer = {
 
     renderDetailed(track) {
         // Prompt 13: Write the renderDetailed method. Just like renderList, it also starts by first clearing the mainContainer. Here we can create html directly; a div with class track-detailed-view, inside there are two divs; track-detailed-view-media-wrapper wraps the image, track-detailed-view-info-wrapper takes the title as an h1, artist name and album title as h3, year, duration and explicit as p tags and finally a "Listen on Spotify" button that has the href from the track data. Append to mainContainer using insertAdjacentHTML.
-```javascript
         mainContainer.innerHTML = '';
 
         const html = `
@@ -73,8 +72,6 @@ const ViewRenderer = {
         `;
 
         mainContainer.insertAdjacentHTML('beforeend', html);
-```
-
     }
 }
 
