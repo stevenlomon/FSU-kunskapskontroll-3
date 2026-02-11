@@ -290,3 +290,6 @@ select:hover {
 }
 
 /* Prompt 11: Write a hidden class that can be toggled on divs to hide/show them */
+.hidden {
+    display: none !important;
+}
