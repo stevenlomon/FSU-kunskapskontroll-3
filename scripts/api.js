@@ -21,3 +21,5 @@ async function fetchById(trackId) {
     return error;
   }
 }
+
+// Prompt 9: Export the two functions
