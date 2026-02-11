@@ -1,4 +1,5 @@
 /* Prompt 4 for root and general app styling to be written here */
+/* Prompt 4: Generate general page CSS for a modern music discovery site. This is my site vision: `Jag tänker använda Spotifys API för att bygga ut en sida som visar ca 30 random låtar på startsidan med sökfunktionalitet och en "Re-shuffle" knapp för att "shuffla" fram nya random låtar. Denna lilla lista på ca 30 låtar blir the "List view" (första anropet). Och när man klickar på en låt går man till "Detailed view" (andra anropet). Om Spotify gör det lätt kan man säkert lägga till "Songs like these" när man är i detailed view. Sidan kommer stylas med AI som skriver CSS efter prompts. Kommer satsa på typ "minimalistic, sleek, modern but still fun" feel`. Make the site centered and let's use Spotify's own color scheme; the Spotify green #1ED760, white #FFFFFF and black #121212. Let's start with this and iterate. */
 
 #nav {
     display: flex;
