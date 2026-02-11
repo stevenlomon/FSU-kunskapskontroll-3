@@ -89,5 +89,33 @@ async function init() {
     }
 }
 
+mainContainer.addEventListener('click', async (e) => {
+    // What did we click?
+    // TRACE: Did we click a track card?
+    // Prompt 14: First, create a const variable trackCard using e.target, closest and the track-item class. Then, write the first click case: if we have a trackCard, create a pointer using dataset.id followed by a try/catch that fetches the track by id and renders it usign renderDetailed. Fall back to List view on error and handle the error gracefully.
+    const trackCard = e.target.closest('.track-item');
+
+    if (trackCard) {
+        const trackId = trackCard.dataset.id;
+        try {
+            const track = await fetchTrackById(trackId);
+            ViewRenderer.renderDetailed(track);
+        } catch (error) {
+            console.error('Error fetching track details:', error); // We'll return to how we render errors
+            ViewRenderer.renderList(DataStore.getTracks());
+        }
+    }
+
+    // TRACE: Did we click 'Go Back'?
+    // Prompt 15: If the id of e.target is 'back-btn', retrieve the initial list we cached with init and re-render it.
+    if (e.target.id === 'back-btn') {
+        // We retrieve the initial list we cached during init()
+        const tracks = DataStore.getTracks();
+
+        // Re-render the list. State Change: Detailed View -> List View
+        ViewRenderer.renderList(tracks);
+    }
+});
+
 // "Power on" our Full Stack app
 window.addEventListener("DOMContentLoaded", init);
