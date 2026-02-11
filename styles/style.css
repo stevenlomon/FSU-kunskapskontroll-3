@@ -1,12 +1,108 @@
-/* Prompt 4 for root and general app styling to be written here */
 /* Prompt 4: Generate general page CSS for a modern music discovery site. This is my site vision: `Jag tänker använda Spotifys API för att bygga ut en sida som visar ca 30 random låtar på startsidan med sökfunktionalitet och en "Re-shuffle" knapp för att "shuffla" fram nya random låtar. Denna lilla lista på ca 30 låtar blir the "List view" (första anropet). Och när man klickar på en låt går man till "Detailed view" (andra anropet). Om Spotify gör det lätt kan man säkert lägga till "Songs like these" när man är i detailed view. Sidan kommer stylas med AI som skriver CSS efter prompts. Kommer satsa på typ "minimalistic, sleek, modern but still fun" feel`. Make the site centered and let's use Spotify's own color scheme; the Spotify green #1ED760, white #FFFFFF and black #121212. Let's start with this and iterate. */
+/* --- Variables & Theme Setup --- */
+:root {
+    --spotify-green: #1ED760;
+    --spotify-black: #121212;
+    --spotify-white: #FFFFFF;
+    --spotify-grey: #2A2A2A;
+    --spotify-light-grey: #B3B3B3;
+    --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --transition-speed: 0.2s;
+}
 
+/* --- Global Reset & Body --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--spotify-black);
+    color: var(--spotify-white);
+    font-family: var(--font-stack);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- Main Layout Container --- */
+/* Centers the content and provides breathing room */
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* --- Navigation & Header --- */
+/* Integrated with your existing #nav ID */
 #nav {
     display: flex;
     align-items: center;
+    justify-content: space-between; /* Spacing between logo/title and controls */
     gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #333;
 }
 
+h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* --- Search & Controls --- */
+.controls-area {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+/* Search Input Styling */
+input[type="text"] {
+    background-color: var(--spotify-grey);
+    border: 1px solid transparent;
+    border-radius: 500px; /* Pill shape */
+    padding: 0.75rem 1.5rem;
+    color: var(--spotify-white);
+    font-size: 0.9rem;
+    outline: none;
+    transition: all var(--transition-speed) ease;
+    flex-grow: 1;
+    max-width: 400px;
+}
+
+input[type="text"]:focus {
+    border-color: var(--spotify-green);
+    background-color: #333;
+}
+
+/* Button Styling (Re-shuffle) */
+button {
+    background-color: var(--spotify-green);
+    color: #000000; /* Black text for accessibility on green */
+    border: none;
+    border-radius: 500px;
+    padding: 0.75rem 2rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: transform var(--transition-speed) ease, filter var(--transition-speed) ease;
+}
+
+button:hover {
+    transform: scale(1.05); /* The "fun" bounce effect */
+    filter: brightness(1.1);
+}
+
+/* --- Track Grid (List View) --- */
+/* Integrated with your existing .track-container class */
 /* Prompt 3: Generate a CSS rule for the class track-item where the focus is on making them display grid and ensure max 5 items per row. This is a follow up of this prompt: `Prompt 2: Generate 10 divs in total, each with the class `track-item`. The div should contain of an image that will be a square image of the album, and for now three <p> tags for artist, album, and year. I still haven't fully decided if these three texts will be overlaid over the album image or under it, we'll test both and see. The value for these will all be dynamically populated with JS and this HTML block will therefore be commented out once styling has been applied and we have ensured it looks like we want to. They will be styled with grid display in style.css; 5 in one row` */
 .track-container {
     display: grid;
@@ -14,14 +110,75 @@
     gap: 1.5rem;
 }
 
-.track-item {
-    display: grid;
-    gap: 0.5rem;
-    text-align: center;
+/* Responsive adjustment for smaller screens */
+@media (max-width: 900px) {
+    .track-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    .track-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
+/* Integrated with your existing .track-item class */
+.track-item {
+    display: grid;
+    gap: 0.75rem; /* Increased slightly for visual separation */
+    text-align: center;
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: transparent;
+}
+
+.track-item:hover {
+    background-color: #282828; /* Subtle highlight on hover */
+}
+
+/* Integrated with your existing image selector */
 .track-item img {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
+    border-radius: 8px; /* Softens the edges */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Adds depth */
+    transition: transform var(--transition-speed) ease;
+}
+
+.track-item:hover img {
+    transform: translateY(-5px); /* "Lift" effect on hover */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.track-info h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-info p {
+    font-size: 0.85rem;
+    color: var(--spotify-light-grey);
+}
+
+/* --- Detailed View (Placeholder) --- */
+/* Basic styling for when you implement the Detailed View overlay/modal */
+.detail-view {
+    background: rgba(18, 18, 18, 0.95);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px); /* Modern frosted glass effect */
+    z-index: 100;
 }
