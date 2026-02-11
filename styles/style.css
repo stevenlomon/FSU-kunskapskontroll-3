@@ -31,13 +31,50 @@ header {
     max-height: 50px; /* Keeps logo from getting too huge */
 }
 
+/* --- Updated Nav Container --- */
 #nav {
     display: flex;
-    justify-content: space-between; /* Pushes Search to left, Dropdowns to right */
-    align-items: center;
-    gap: 1rem;
+    /* We remove justify-content: space-between here because the 
+       children now control their own layout */
+    align-items: center; 
     margin-bottom: 2rem;
+    min-height: 3rem; /* Prevents layout jump when switching views */
+}
+
+/* --- The List View Wrapper --- */
+/* This container now acts as the flex parent for the search/dropdowns */
+.navbar-list-view {
+    display: flex;
+    justify-content: space-between; /* This restores the original behavior */
+    align-items: center;
+    width: 100%; /* Important: Ensures it fills the #nav container */
+    gap: 1rem;
     flex-wrap: wrap;
+}
+
+/* --- The Detailed View Wrapper --- */
+.navbar-detailed-view {
+    /* Since this button usually sits alone on the left, 
+       default block or flex behavior works fine. 
+       We just ensure it doesn't collapse if empty. */
+    display: flex; 
+    align-items: center;
+}
+
+/* --- Back Button Style --- */
+#back-btn {
+    background-color: transparent; /* Clean look */
+    color: var(--spotify-white);
+    border: 1px solid var(--spotify-grey);
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+#back-btn:hover {
+    background-color: var(--spotify-grey);
+    border-color: var(--spotify-white);
+    transform: translateX(-5px); /* Fun little "point left" animation */
 }
 
 /* Search Input */
@@ -250,4 +287,9 @@ select:hover {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* Prompt 11: Write a hidden class that can be toggled on divs to hide/show them */
+.hidden {
+    display: none !important;
 }
