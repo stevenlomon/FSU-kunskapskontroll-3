@@ -31,15 +31,21 @@ const ViewRenderer = {
     renderList(tracks) {
         mainContainer.innerHTML = '';
 
-        const html = tracks.map(track => `
+        const tracksHTML = tracks.map(track => `
             <div class="track-item" data-id="${track.id}">
-                <img src="${track.album.images[0]}" alt="Album Cover">
+                <img src="${track.album.images[0].url}" alt="Album Cover">
                 <p>${track.name}</p>
                 <p>${track.artists[0].name}</p>
                 <p>${track.album.name}</p>
                 <p>${track.album.release_date.substring(0,4)}</p>
             </div>
         `).join('');
+
+        const html = `
+        <div class="track-container">
+            ${tracksHTML}
+        </div>
+        `;
 
         mainContainer.insertAdjacentHTML('beforeend', html);
     },
