@@ -28,6 +28,7 @@ const ViewRenderer = {
     // Prompt 9: Create a renderList function that takes `tracks` as its input argument. It should first clear mainContainer using innerHTML. Then it creates a const html variable using tracks and the map method to create an HTML string that contains a div with class `track-item` and data-id being track.id wrappaing three <p> tags: artist name, album title, and year. Append it to mainContainer using insertAdjacentHTML and 'beforeend'.
     renderList(tracks) {
         mainContainer.innerHTML = '';
+
         const html = tracks.map(track => `
             <div class="track-item" data-id="${track.id}">
                 <p>${track.artist}</p>
@@ -35,6 +36,7 @@ const ViewRenderer = {
                 <p>${track.year}</p>
             </div>
         `).join('');
+        
         mainContainer.insertAdjacentHTML('beforeend', html);
     }
 
