@@ -2,9 +2,9 @@
 async function fetchAll() {
   try {
     const response = await fetch('https://api.example.com/tracks');
-    const data = await response.json();
+    const tracksData = await response.json();
 
-    return  data
+    return tracksData
   } catch (error) {
     return error;
   }
@@ -13,9 +13,9 @@ async function fetchAll() {
 async function fetchById(trackId) {
   try {
     const response = await fetch(`https://api.example.com/tracks/${trackId}`);
-    const data = await response.json();
+    const trackData = await response.json();
     
-    return  data
+    return trackData
   } catch (error) {
     return error;
   }
