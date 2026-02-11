@@ -60,3 +60,6 @@ async function init() {
         mainContainer.innerHTML = `Error when rendering site: ${error}. Please try again.`;
     }
 }
+
+// "Power on" our Full Stack app
+window.addEventListener("DOMContentLoaded", init);
