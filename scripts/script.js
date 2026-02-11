@@ -1,3 +1,5 @@
+import { fetchAll, fetchById } from "./api.js";
+
 const mainContainer = document.getElementById('container');
 
 // Prompt 6: Write an object called DataStore that should have an empty array called allTracks, a method getTracks that returns a JSON parsed object from localStorage under the key 'trackData' or an empty array; a method called setTracks that simply takes a tracks object and sets allTracks using `this`; and finally a getTracks method that returns allTracks using `this`.
@@ -29,13 +31,21 @@ const ViewRenderer = {
     renderList(tracks) {
         mainContainer.innerHTML = '';
 
-        const html = tracks.map(track => `
+        const tracksHTML = tracks.map(track => `
             <div class="track-item" data-id="${track.id}">
-                <p>${track.artist}</p>
-                <p>${track.album}</p>
-                <p>${track.year}</p>
+                <img src="${track.album.images[0].url}" alt="Album Cover">
+                <p><strong>${track.name}</strong></p>
+                <p>${track.artists[0].name}</p>
+                <p>${track.album.name}</p>
+                <p>${track.album.release_date.substring(0,4)}</p>
             </div>
         `).join('');
+
+        const html = `
+        <div class="track-container">
+            ${tracksHTML}
+        </div>
+        `;
 
         mainContainer.insertAdjacentHTML('beforeend', html);
     },
@@ -44,3 +54,20 @@ const ViewRenderer = {
         // To be implemented
     }
 }
+
+// Prompt 12: Write an async function called init that uses a try/catch block to initialize initList using fetchAll and then sets this using setTracks from DataStore and renders the list using renderList. Fill the innerHTML of mainContainer with an appropriate error message in the catch block.
+async function init() {
+    try {
+        // Fetch initial list and store it as cache in our DataStore
+        const initList = await fetchAll();
+        DataStore.setTracks(initList);
+
+        // Render our initial list
+        ViewRenderer.renderList(initList);
+    } catch (error) {
+        mainContainer.innerHTML = `Error when rendering site: ${error}. Please try again.`;
+    }
+}
+
+// "Power on" our Full Stack app
+window.addEventListener("DOMContentLoaded", init);
