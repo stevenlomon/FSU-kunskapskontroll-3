@@ -44,3 +44,5 @@ const ViewRenderer = {
         // To be implemented
     }
 }
+
+// Prompt 12 to be written here
