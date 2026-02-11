@@ -36,8 +36,11 @@ const ViewRenderer = {
                 <p>${track.year}</p>
             </div>
         `).join('');
-        
-        mainContainer.insertAdjacentHTML('beforeend', html);
-    }
 
+        mainContainer.insertAdjacentHTML('beforeend', html);
+    },
+
+    renderDetailed(track) {
+        // To be implemented
+    }
 }
