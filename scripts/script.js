@@ -51,7 +51,7 @@ const ViewRenderer = {
     },
 
     renderDetailed(track) {
-        // To be implemented
+        // Prompt 13 to be written here
     }
 }
 
