@@ -108,12 +108,13 @@ mainContainer.addEventListener('click', async (e) => {
 
     // TRACE: Did we click 'Go Back'?
     // Prompt 15: If the id of e.target is 'back-btn', retrieve the initial list we cached with init and re-render it.
-```javascript
     if (e.target.id === 'back-btn') {
+        // We retrieve the initial list we cached during init()
         const tracks = DataStore.getTracks();
+
+        // Re-render the list. State Change: Detailed View -> List View
         ViewRenderer.renderList(tracks);
     }
-```
 
 });
 
