@@ -47,4 +47,4 @@ const ViewRenderer = {
     }
 }
 
-// Prompt 12 to be written here
+// Prompt 12: Write an async function called init that uses a try/catch block to initialize initList using fetchAll and then sets this using setTracks from DataStore and renders the list using renderList. Fill the innerHTML of mainContainer with an appropriate error message in the catch block.
