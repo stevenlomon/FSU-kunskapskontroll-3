@@ -78,6 +78,32 @@ select:hover {
     background-color: #3E3E3E;
 }
 
+/* Prompt 5: Generate CSS styling for the following HTML button: `<button id="re-shuffle">Re-shuffle! 🎲</button>` that is also in the nav together with the input and the three drop down selects. Make it coherent and aligned with the rest of the CSS */
+/* Re-shuffle Button */
+#re-shuffle {
+    background-color: var(--spotify-green);
+    color: var(--spotify-black);
+    border: none;
+    border-radius: 500px;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.1s ease, background-color 0.2s ease;
+    white-space: nowrap;
+}
+
+#re-shuffle:hover {
+    background-color: #1fdf64;
+    transform: scale(1.04);
+}
+
+#re-shuffle:active {
+    transform: scale(1);
+    opacity: 0.9;
+}
+
+
 /* --- Grid Layout --- */
 /* Prompt 3: Generate a CSS rule for the class track-item where the focus is on making them display grid and ensure max 5 items per row. This is a follow up of this prompt: `Prompt 2: Generate 10 divs in total, each with the class `track-item`. The div should contain of an image that will be a square image of the album, and for now three <p> tags for artist, album, and year. I still haven't fully decided if these three texts will be overlaid over the album image or under it, we'll test both and see. The value for these will all be dynamically populated with JS and this HTML block will therefore be commented out once styling has been applied and we have ensured it looks like we want to. They will be styled with grid display in style.css; 5 in one row` */
 .track-container {
