@@ -93,7 +93,6 @@ mainContainer.addEventListener('click', async (e) => {
     // What did we click?
     // TRACE: Did we click a track card?
     // Prompt 14: First, create a const variable trackCard using e.target, closest and the track-item class. Then, write the first click case: if we have a trackCard, create a pointer using dataset.id followed by a try/catch that fetches the track by id and renders it usign renderDetailed. Fall back to List view on error and handle the error gracefully.
-```javascript
     const trackCard = e.target.closest('.track-item');
 
     if (trackCard) {
@@ -102,11 +101,10 @@ mainContainer.addEventListener('click', async (e) => {
             const track = await fetchTrackById(trackId);
             ViewRenderer.renderDetailed(track);
         } catch (error) {
-            console.error('Error fetching track details:', error);
+            console.error('Error fetching track details:', error); // We'll return to how we render errors
             ViewRenderer.renderList(DataStore.getTracks());
         }
     }
-```
 
 });
 
