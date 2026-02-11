@@ -1,24 +1,120 @@
-#nav {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+/* Prompt 4: Generate general page CSS for a modern music discovery site. This is my site vision: `Jag tänker använda Spotifys API för att bygga ut en sida som visar ca 30 random låtar på startsidan med sökfunktionalitet och en "Re-shuffle" knapp för att "shuffla" fram nya random låtar. Denna lilla lista på ca 30 låtar blir the "List view" (första anropet). Och när man klickar på en låt går man till "Detailed view" (andra anropet). Om Spotify gör det lätt kan man säkert lägga till "Songs like these" när man är i detailed view. Sidan kommer stylas med AI som skriver CSS efter prompts. Kommer satsa på typ "minimalistic, sleek, modern but still fun" feel`. Make the site centered and let's use Spotify's own color scheme; the Spotify green #1ED760, white #FFFFFF and black #121212. Let's start with this and iterate. */
+:root {
+    --spotify-green: #1ED760;
+    --spotify-black: #121212;
+    --spotify-card: #181818;
+    --spotify-grey: #2A2A2A;
+    --spotify-white: #FFFFFF;
 }
 
+body {
+    background-color: var(--spotify-black);
+    color: var(--spotify-white);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+}
+
+/* --- THE FIX: Centered Layout Container --- */
+.layout-container {
+    max-width: 1600px; /* Limits width on large screens */
+    width: 100%;
+    margin: 0 auto; /* Centers the container */
+    padding: 2rem;  /* Adds breathing room on sides */
+}
+
+/* --- Header & Nav --- */
+header {
+    margin-bottom: 2rem;
+}
+
+.site-logo {
+    max-height: 50px; /* Keeps logo from getting too huge */
+}
+
+#nav {
+    display: flex;
+    justify-content: space-between; /* Pushes Search to left, Dropdowns to right */
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+/* Search Input */
+input[type="text"] {
+    background-color: var(--spotify-white);
+    border: none;
+    border-radius: 500px;
+    padding: 0.8rem 1.5rem;
+    width: 300px;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+/* Dropdown Container */
+.filter-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Styling the Dropdowns (Selects) */
+select {
+    appearance: none; /* Removes default OS styling */
+    background-color: var(--spotify-grey);
+    color: var(--spotify-white);
+    border: 1px solid transparent;
+    border-radius: 500px;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 0.7rem auto;
+    padding-right: 2.5rem; /* Make room for the arrow */
+}
+
+select:hover {
+    background-color: #3E3E3E;
+}
+
+/* --- Grid Layout --- */
 /* Prompt 3: Generate a CSS rule for the class track-item where the focus is on making them display grid and ensure max 5 items per row. This is a follow up of this prompt: `Prompt 2: Generate 10 divs in total, each with the class `track-item`. The div should contain of an image that will be a square image of the album, and for now three <p> tags for artist, album, and year. I still haven't fully decided if these three texts will be overlaid over the album image or under it, we'll test both and see. The value for these will all be dynamically populated with JS and this HTML block will therefore be commented out once styling has been applied and we have ensured it looks like we want to. They will be styled with grid display in style.css; 5 in one row` */
 .track-container {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(5, 1fr);
     gap: 1.5rem;
 }
 
 .track-item {
-    display: grid;
-    gap: 0.5rem;
-    text-align: center;
+    background-color: var(--spotify-card);
+    padding: 1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.track-item:hover {
+    background-color: #282828;
 }
 
 .track-item img {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1/1;
     object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
+
+.track-info p {
+    margin: 0.2rem 0;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-name { font-weight: 700; color: #fff; }
+.track-album { color: #b3b3b3; font-size: 0.85rem; }
+.track-year { color: #b3b3b3; font-size: 0.8rem; }
