@@ -1,3 +1,7 @@
+[hidden] {
+    display: none !important;
+}
+
 /* Prompt 4: Generate general page CSS for a modern music discovery site. This is my site vision: `Jag tänker använda Spotifys API för att bygga ut en sida som visar ca 30 random låtar på startsidan med sökfunktionalitet och en "Re-shuffle" knapp för att "shuffla" fram nya random låtar. Denna lilla lista på ca 30 låtar blir the "List view" (första anropet). Och när man klickar på en låt går man till "Detailed view" (andra anropet). Om Spotify gör det lätt kan man säkert lägga till "Songs like these" när man är i detailed view. Sidan kommer stylas med AI som skriver CSS efter prompts. Kommer satsa på typ "minimalistic, sleek, modern but still fun" feel`. Make the site centered and let's use Spotify's own color scheme; the Spotify green #1ED760, white #FFFFFF and black #121212. Let's start with this and iterate. */
 :root {
     --spotify-green: #1ED760;
@@ -31,13 +35,50 @@ header {
     max-height: 50px; /* Keeps logo from getting too huge */
 }
 
+/* --- Updated Nav Container --- */
 #nav {
     display: flex;
-    justify-content: space-between; /* Pushes Search to left, Dropdowns to right */
-    align-items: center;
-    gap: 1rem;
+    /* We remove justify-content: space-between here because the 
+       children now control their own layout */
+    align-items: center; 
     margin-bottom: 2rem;
+    min-height: 3rem; /* Prevents layout jump when switching views */
+}
+
+/* --- The List View Wrapper --- */
+/* This container now acts as the flex parent for the search/dropdowns */
+.navbar-list-view {
+    display: flex;
+    justify-content: space-between; /* This restores the original behavior */
+    align-items: center;
+    width: 100%; /* Important: Ensures it fills the #nav container */
+    gap: 1rem;
     flex-wrap: wrap;
+}
+
+/* --- The Detailed View Wrapper --- */
+.navbar-detailed-view {
+    /* Since this button usually sits alone on the left, 
+       default block or flex behavior works fine. 
+       We just ensure it doesn't collapse if empty. */
+    display: flex; 
+    align-items: center;
+}
+
+/* --- Back Button Style --- */
+#back-btn {
+    background-color: transparent; /* Clean look */
+    color: var(--spotify-white);
+    border: 1px solid var(--spotify-grey);
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+#back-btn:hover {
+    background-color: var(--spotify-grey);
+    border-color: var(--spotify-white);
+    transform: translateX(-5px); /* Fun little "point left" animation */
 }
 
 /* Search Input */
@@ -80,7 +121,7 @@ select:hover {
 
 /* Prompt 5: Generate CSS styling for the following HTML button: `<button id="re-shuffle">Re-shuffle! 🎲</button>` that is also in the nav together with the input and the three drop down selects. Make it coherent and aligned with the rest of the CSS */
 /* Re-shuffle Button */
-#re-shuffle, #back-btn {
+#re-shuffle {
     background-color: var(--spotify-green);
     color: var(--spotify-black);
     border: none;
@@ -93,12 +134,12 @@ select:hover {
     white-space: nowrap;
 }
 
-#re-shuffle:hover, #back-btn:hover {
+#re-shuffle:hover {
     background-color: #1fdf64;
     transform: scale(1.04);
 }
 
-#re-shuffle:active, #back-btn:active {
+#re-shuffle:active {
     transform: scale(1);
     opacity: 0.9;
 }
