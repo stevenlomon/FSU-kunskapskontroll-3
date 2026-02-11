@@ -1,3 +1,5 @@
+const mainContainer = document.getElementById('container');
+
 // Prompt 6: Write an object called DataStore that should have an empty array called allTracks, a method getTracks that returns a JSON parsed object from localStorage under the key 'trackData' or an empty array; a method called setTracks that simply takes a tracks object and sets allTracks using `this`; and finally a getTracks method that returns allTracks using `this`.
 const DataStore = {
     // We store and "cache" the list here so that we don't have to fetch
@@ -21,3 +23,24 @@ const DataStore = {
         return this.allTracks;
     }
 };
+
+const ViewRenderer = {
+    // Prompt 9: Create a renderList function that takes `tracks` as its input argument. It should first clear mainContainer using innerHTML. Then it creates a const html variable using tracks and the map method to create an HTML string that contains a div with class `track-item` and data-id being track.id wrappaing three <p> tags: artist name, album title, and year. Append it to mainContainer using insertAdjacentHTML and 'beforeend'.
+    renderList(tracks) {
+        mainContainer.innerHTML = '';
+
+        const html = tracks.map(track => `
+            <div class="track-item" data-id="${track.id}">
+                <p>${track.artist}</p>
+                <p>${track.album}</p>
+                <p>${track.year}</p>
+            </div>
+        `).join('');
+
+        mainContainer.insertAdjacentHTML('beforeend', html);
+    },
+
+    renderDetailed(track) {
+        // To be implemented
+    }
+}
