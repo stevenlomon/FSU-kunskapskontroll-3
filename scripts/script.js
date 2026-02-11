@@ -89,5 +89,7 @@ async function init() {
     }
 }
 
+// Prompt 14 to be added here
+
 // "Power on" our Full Stack app
 window.addEventListener("DOMContentLoaded", init);
