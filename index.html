@@ -31,7 +31,7 @@
         
         <main id="container">
             <!-- Prompt 2: Generate 10 divs in total, each with the class `track-item`. The div should contain of an image that will be a square image of the album, and for now three <p> tags for artist, album, and year. I still haven't fully decided if these three texts will be overlaid over the album image or under it, we'll test both and see. The value for these will all be dynamically populated with JS and this HTML block will therefore be commented out once styling has been applied and we have ensured it looks like we want to. They will be styled with grid display in style.css; 5 in one row -->
-            <div class="track-container">
+            <!-- <div class="track-container">
                 <div class="track-item">
                     <img src="./img/sgt-pepper.jpg" alt="Album Cover">
                     <p>Artist Name</p>
@@ -91,6 +91,21 @@
                     <p>Artist Name</p>
                     <p>Album Title</p>
                     <p>Year</p>
+                </div>
+            </div> -->
+            <div class="track-detailed-view">
+                <!-- Prompt 10: Write HTML for the detailed view: an image, name as h1, artist and album as h3, year, duration and explicit as p, and finally button that says "Listen on Spotify" -->
+                <div class="track-detailed-view-media-wrapper">
+                    <img src="./img/sgt-pepper.jpg" alt="Track Cover">
+                </div>
+                <div class="track-detailed-view-info-wrapper">
+                    <h1>Track Name</h1>
+                    <h3>Artist Name</h3>
+                    <h3>Album Title</h3>
+                    <p>Year</p>
+                    <p>Duration</p>
+                    <p>Explicit</p>
+                    <button>Listen on Spotify</button>
                 </div>
             </div>
         </main>
