@@ -2,12 +2,10 @@
 async function fetchAll() {
   try {
     const response = await fetch('http://localhost:3000/search?q=b&type=track&limit=15');
-    const tracksData = await response.json();
-    console.log("tracksData: ", tracksData);
-    const items = tracksData["tracks"]["items"];
-    console.log("items:", items);
+    const data = await response.json();
+    const tracksData = data["tracks"]["items"];
 
-    return items
+    return tracksData
   } catch (error) {
     return error;
   }
