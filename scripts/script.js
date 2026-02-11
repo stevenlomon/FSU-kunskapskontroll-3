@@ -33,9 +33,11 @@ const ViewRenderer = {
 
         const html = tracks.map(track => `
             <div class="track-item" data-id="${track.id}">
-                <p>${track.artist}</p>
-                <p>${track.album}</p>
-                <p>${track.year}</p>
+                <img src="${track.album.images[0]}" alt="Album Cover">
+                <p>${track.name}</p>
+                <p>${track.artists[0].name}</p>
+                <p>${track.album.name}</p>
+                <p>${track.album.release_date.substring(0,4)}</p>
             </div>
         `).join('');
 
