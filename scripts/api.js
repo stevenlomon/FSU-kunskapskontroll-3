@@ -62,6 +62,8 @@ async function getValidAccessToken() {
 // Prompt 8: Write two async functions called fetchAll (zero input arguments) and fetchById (takes trackId) that both use try/catch blocks to make an await fetch request to a placeholder URL. The catch block should return an error from the requst if available
 async function fetchAll() {
   try {
+    const token = getValidAccessToken();
+
     const response = await fetch('http://localhost:3000/search?q=b&type=track&limit=15');
     const data = await response.json();
     const tracksData = data["tracks"]["items"];
@@ -75,6 +77,8 @@ async function fetchAll() {
 
 async function fetchById(trackId) {
   try {
+    const token = getValidAccessToken();
+    
     const response = await fetch(`https://api.example.com/tracks/${trackId}`);
     const trackData = await response.json();
 
