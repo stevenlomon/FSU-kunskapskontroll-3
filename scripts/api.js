@@ -1,31 +1,44 @@
 // Code from https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
 // I'm well aware that in real production we would use the Python equivalent of .env and python-dotenv 
 // for secrets and credentials
-// Prompt 17: Make the following a working function that returns a fresh acess token using the credentials
+// The function was taken to a working state with the help of Gemini
+// Apparently the Spotify documentation is using ancient dinosaur way of writing JS?
 async function fetchAccessToken() {
     const client_id = 'b207e4b236444a4ba0d58862c28a46a3';
     const client_secret = 'c48e58611d9041d6b613f5fa9727a96e';
 
-    const authOptions = {
-        url: 'https://accounts.spotify.com/api/token',
-        headers: {
-            'Authorization': 'Basic ' + (new Buffer.from(client_id + ':' + client_secret).toString('base64'))
-        },
-        form: {
-            grant_type: 'client_credentials'
-        },
-        json: true
-    };
+    const url = 'https://accounts.spotify.com/api/token';
+    
+    // 1. Prepare the credentials for Basic Auth
+    // btoa() is the browser-native way to create a Base64 string
+    const credentials = btoa(`${client_id}:${client_secret}`);
 
-    request.post(authOptions, function generateAccessToken(error, response, body) {
-        if (!error && response.statusCode === 200) {
-            const token = body.access_token;
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Basic ${credentials}`,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            // 2. The body must be URL-encoded, not a standard JSON object
+            body: new URLSearchParams({
+                'grant_type': 'client_credentials'
+            })
+        });
 
-            return token
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Failed to fetch access token');
         }
-    });
 
-    return generateAccessToken()
+        // 3. Return the full JSON object (access_token, token_type, expires_in)
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.error('Authorization Error:', error);
+        throw error;
+    }
 }
 
 // Prompt 8: Write two async functions called fetchAll (zero input arguments) and fetchById (takes trackId) that both use try/catch blocks to make an await fetch request to a placeholder URL. The catch block should return an error from the requst if available
