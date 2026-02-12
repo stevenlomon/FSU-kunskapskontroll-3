@@ -67,5 +67,5 @@ async function fetchById(trackId) {
 }
 
 // Prompt 9: Export the two functions
-export { fetchAll, fetchById };
+export { fetchAccessToken, fetchAll, fetchById };
 
