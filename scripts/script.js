@@ -35,6 +35,8 @@ const DataStore = {
     saveAccessTokenFromStorage(token) {
         localStorage.setItem('accessToken', token);
     },
+
+    // Prompt 17: Write a setAccessToken and getAccessToken
 };
 
 const ViewRenderer = {
