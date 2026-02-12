@@ -96,10 +96,7 @@ async function init() {
             saveAccessTokenToStorage(token);
 
             // Prompt 19: Also store an expiration timestamp (current time + 3600ms) in localStorage
-```javascript
-localStorage.setItem('tokenExpiration', Date.now() + 3600);
-```
-
+            localStorage.setItem('tokenExpiration', Date.now() + 3600);
         }
 
         // Fetch initial list and store it as cache in our DataStore
