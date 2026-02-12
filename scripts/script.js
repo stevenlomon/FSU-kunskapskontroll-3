@@ -9,35 +9,32 @@ const DataStore = {
     allTracks: [],
 
     // Prompt 16: Add access token here itilialized as an empty string. Write a method getAccessTokenFromStorage and a method saveAccessTokenFromStorage
-```javascript
     accessToken: '',
-
-    getAccessTokenFromStorage() {
-        return localStorage.getItem('accessToken') || '';
-    },
-
-    saveAccessTokenFromStorage(token) {
-        localStorage.setItem('accessToken', token);
-    },
-```
-
 
     getTracksFromStorage() {
         return JSON.parse(localStorage.getItem('trackData')) || [];
     },
-
+    
     // Prompt 7: Write a method like the one above called saveTracksToStorage that takes a list and saves it to localStorage under 'trackData' using JSON stringify
     saveTracksToStorage(tracks) {
         localStorage.setItem('trackData', JSON.stringify(tracks));
     },
-
+    
     setTracks(tracks) {
         this.allTracks = tracks;
     },
     
     getTracks() {
         return this.allTracks;
-    }
+    },
+
+    getAccessTokenFromStorage() {
+        return localStorage.getItem('accessToken') || '';
+    },
+    
+    saveAccessTokenFromStorage(token) {
+        localStorage.setItem('accessToken', token);
+    },
 };
 
 const ViewRenderer = {
