@@ -42,7 +42,6 @@ async function fetchAccessToken() {
 }
 
 // Prompt 20: Write a function that checks if we have a valid access token in localStorage under the `tokenExpiration` key. If we don't, fetch one and store it
-```javascript
 async function getValidAccessToken() {
     const token = localStorage.getItem('accessToken');
     const expiration = localStorage.getItem('tokenExpiration');
@@ -59,8 +58,6 @@ async function getValidAccessToken() {
 
     return data.access_token;
 }
-```
-
 
 // Prompt 8: Write two async functions called fetchAll (zero input arguments) and fetchById (takes trackId) that both use try/catch blocks to make an await fetch request to a placeholder URL. The catch block should return an error from the requst if available
 async function fetchAll() {
