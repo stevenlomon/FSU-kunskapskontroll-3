@@ -1,7 +1,7 @@
 // Code from https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
 // I'm well aware that in real production we would use the Python equivalent of .env and python-dotenv 
 // for secrets and credentials
-// Prompt 17 to be added here
+// Prompt 17: Make the following a working function that returns a fresh acess token using the credentials
 async function fetchAccessToken() {
     const client_id = 'b207e4b236444a4ba0d58862c28a46a3';
     const client_secret = 'c48e58611d9041d6b613f5fa9727a96e';
