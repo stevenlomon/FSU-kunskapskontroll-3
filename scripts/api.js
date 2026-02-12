@@ -1,3 +1,33 @@
+// Code from https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
+// I'm well aware that in real production we would use the Python equivalent of .env and python-dotenv 
+// for secrets and credentials
+// Prompt 17 to be added here
+async function fetchAccessToken() {
+    const client_id = 'b207e4b236444a4ba0d58862c28a46a3';
+    const client_secret = 'c48e58611d9041d6b613f5fa9727a96e';
+
+    const authOptions = {
+        url: 'https://accounts.spotify.com/api/token',
+        headers: {
+            'Authorization': 'Basic ' + (new Buffer.from(client_id + ':' + client_secret).toString('base64'))
+        },
+        form: {
+            grant_type: 'client_credentials'
+        },
+        json: true
+    };
+
+    request.post(authOptions, function generateAccessToken(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            const token = body.access_token;
+
+            return token
+        }
+    });
+
+    return generateAccessToken()
+}
+
 // Prompt 8: Write two async functions called fetchAll (zero input arguments) and fetchById (takes trackId) that both use try/catch blocks to make an await fetch request to a placeholder URL. The catch block should return an error from the requst if available
 async function fetchAll() {
   try {
