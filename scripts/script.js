@@ -37,6 +37,13 @@ const DataStore = {
     },
 
     // Prompt 17: Write a setAccessToken and getAccessToken
+    setAccessToken(token) {
+        this.accessToken = token;
+    },
+
+    getAccessToken() {
+        return this.accessToken;
+    },
 };
 
 const ViewRenderer = {
