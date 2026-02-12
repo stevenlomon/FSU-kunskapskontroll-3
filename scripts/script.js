@@ -1,4 +1,4 @@
-import { fetchAll, fetchById } from "./api.js";
+import { fetchAccessToken, fetchAll, fetchById } from "./api.js";
 
 const mainContainer = document.getElementById('container');
 
