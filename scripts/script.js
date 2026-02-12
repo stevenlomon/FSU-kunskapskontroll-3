@@ -8,7 +8,7 @@ const DataStore = {
     // it every single time we go back from the detailed track page view
     allTracks: [],
 
-    // Prompt 16 to be added here
+    // Prompt 16: Add access token here itilialized as an empty string. Write a method getAccessTokenFromStorage and a method saveAccessTokenFromStorage
 
     getTracksFromStorage() {
         return JSON.parse(localStorage.getItem('trackData')) || [];
