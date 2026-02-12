@@ -513,3 +513,140 @@ Spotify tillåter inte en att skapa appar hos de för tillfället 🙃 Se bild 1
 Beautiful 🌱✨
 
 All kod i PR#1 är skrivet i Antigravity
+
+## Dag 3
+Tracklade på med kod i Antigravity, fick en hel del gjort. Och på kvällen; vi har tillgång till Spotify:s officiella API! Att jobba med imorgon
+
+## Dag 4
+Vi måste först autentisera oss. https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
+Jag är inte super säker på hur man ska tänka kring min access token när jag väl får den och hur den bör användas i min applikation. När jag använder den nu och testar kan jag he en auth.js för att skapa min access token, spara den och använda den i alla mina API-anrop. Men hur ska jag tänka när en användare surfar in och använder min sida? Ska jag generera en ny access token varje gång ett API-anrop görs?? Ska första gången ett API-anrop görs och en access token inte finns skapa en och se till att denna används tills den blir expired? Ska jag lagra the Access Token i localStorage??? Många frågor här som jag vill ha svar på.
+Igår kväll fick jag även en bra idé på vad vi kan ha i de tre drop down menyerna; Genre, Decade och BPM! Dessa blir våra filter utöver sökrutan. Alla kommer ha ca 5-8 options ungefär och värdet på dessa slängs in som en `?genre=` eller `?bpm=` i vår query string till Search endpointen om jag förstår det rätt. Även detta får slängas in i min prompt. Ska bara kolla hur Search-endpointen tar variabler i sin query string...
+"q
+string
+Required
+Your search query.
+
+You can narrow down your search using field filters. The available filters are album, artist, track, year, upc, tag:hipster, tag:new, isrc, and genre. Each field filter only applies to certain result types.
+
+The artist and year filters can be used while searching albums, artists and tracks. You can filter on a single year or a range (e.g. 1955-1960).
+The album filter can be used while searching albums and tracks.
+The genre filter can be used while searching artists and tracks.
+The isrc and track filters can be used while searching tracks.
+The upc, tag:new and tag:hipster filters can only be used while searching albums. The tag:new filter will return albums released in the past two weeks and tag:hipster can be used to return only albums with the lowest 10% popularity.
+
+Example: q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis"
+Yes, vi kan filtrera på decade och genre iaf! Inte BPM unfortunately. Får tänka ut en annan, låta det run in the background så att säga. Och det varkar inte vara `?genre=` eller `?bpm=`, utan snarare `%2520year%3A1990-1999` och `%2520genre%3Arock`. Detta får bli confirmed i min prompt jag skriver. 
+En sista grej jag kommer slänga in nu är en somewhat primitiv lösning för random search som har tänkts ut i bakgrunden när har gjort annat. Vi väljer en random bokstav i alfabetet, säg att det blir 'r', låt det bli det enda som kommer efter q, dvs. `q=r` för de första 5 sökresultaten, välj sedan en andra random bokstav i alfabetet och låt det blir för de 5 nästa och sen en sista random bokstav i alfabetet för de 5 sista. Vi kör 15 in total på startsidan, inte 30. Känner att det kan bli overwhelming och för mycket för användaren. Jag låter detta bli lösning 1! Hör vad Gemini har att säga om det. Implementerar det och kanske sen frågar om en mer elegant lösning i mån om tid och brain power. Jag tar allt detta nu under Dag 4 och ger till Gemini! Samma chat som gav mig clarity Dag 1.
+
+Input:
+¤¤¤
+Hi again! I'm on Day 4 now and I have access to the API! It became available yesterday evening haha. I have a few more reflections and questions I want you to assess and act as a sounding board to.
+
+"""
+
+Vi måste först autentisera oss. https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
+
+Jag är inte super säker på hur man ska tänka kring min access token när jag väl får den och hur den bör användas i min applikation. När jag använder den nu och testar kan jag he en auth.js för att skapa min access token, spara den och använda den i alla mina API-anrop. Men hur ska jag tänka när en användare surfar in och använder min sida? Ska jag generera en ny access token varje gång ett API-anrop görs?? Ska första gången ett API-anrop görs och en access token inte finns skapa en och se till att denna används tills den blir expired? Ska jag lagra the Access Token i localStorage??? Många frågor här som jag vill ha svar på.
+
+Igår kväll fick jag även en bra idé på vad vi kan ha i de tre drop down menyerna; Genre, Decade och BPM! Dessa blir våra filter utöver sökrutan. Alla kommer ha ca 5-8 options ungefär och värdet på dessa slängs in som en `?genre=` eller `?bpm=` i vår query string till Search endpointen om jag förstår det rätt. Även detta får slängas in i min prompt. Ska bara kolla hur Search-endpointen tar variabler i sin query string...
+
+"q
+
+string
+
+Required
+
+Your search query.
+
+
+
+You can narrow down your search using field filters. The available filters are album, artist, track, year, upc, tag:hipster, tag:new, isrc, and genre. Each field filter only applies to certain result types.
+
+
+
+The artist and year filters can be used while searching albums, artists and tracks. You can filter on a single year or a range (e.g. 1955-1960).
+
+The album filter can be used while searching albums and tracks.
+
+The genre filter can be used while searching artists and tracks.
+
+The isrc and track filters can be used while searching tracks.
+
+The upc, tag:new and tag:hipster filters can only be used while searching albums. The tag:new filter will return albums released in the past two weeks and tag:hipster can be used to return only albums with the lowest 10% popularity.
+
+
+
+Example: q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis"
+
+Yes, vi kan filtrera på decade och genre iaf! Inte BPM unfortunately. Får tänka ut en annan, låta det run in the background så att säga. Och det varkar inte vara `?genre=` eller `?bpm=`, utan snarare `%2520year%3A1990-1999` och `%2520genre%3Arock`. Detta får bli confirmed i min prompt jag skriver. 
+
+En sista grej jag kommer slänga in nu är en somewhat primitiv lösning för random search som har tänkts ut i bakgrunden när har gjort annat. Vi väljer en random bokstav i alfabetet, säg att det blir 'r', låt det bli det enda som kommer efter q, dvs. `q=r` för de första 5 sökresultaten, välj sedan en andra random bokstav i alfabetet och låt det blir för de 5 nästa och sen en sista random bokstav i alfabetet för de 5 sista. Vi kör 15 in total på startsidan, inte 30. Känner att det kan bli overwhelming och för mycket för användaren. Jag låter detta bli lösning 1! Hör vad Gemini har att säga om det. Implementerar det och kanske sen frågar om en mer elegant lösning i mån om tid och brain power. Jag tar allt detta nu under Dag 4 och ger till Gemini!
+
+"""
+
+Keep your output still in English, I'm simply writing in Swedish for the README project journal, I still prefer to think and communicate in English. 
+
+* Point me in the right direction when it comes to the access token and how it serves me to think about its usage
+
+* Confirm or correct my understanding of the query string and how to use it
+
+* Simply affirm that my solution to The "Random" fetch logic Mini Challenge is *a* solution that is viable. It's not the most elegant solution in the world, I'm well aware of that! And don't give me the most elegant solution in the world yet cuz I won't appreciate it yet. Simply affirm, don't give any code!
+¤¤¤
+Output:
+¤¤¤
+It’s great to see the progress! Day 4 is usually when the "rubber meets the road" and you start hitting those interesting architectural puzzles.
+
+Here is my assessment of your reflections:
+
+1. The Access Token Strategy
+In the Client Credentials Flow, the token is typically valid for 3600 seconds (1 hour).
+
+How to think about it: You definitely don't want to generate a new token for every API call. That’s inefficient and will likely get you rate-limited quickly.
+
+The "Pragmatic" approach: Treat the token as a temporary resource. When your app starts, check if you have a valid token.
+
+Storage: Storing it in localStorage (or sessionStorage) is perfectly fine for a student project.
+
+The Lifecycle: A solid pattern is to store the token along with an expiration timestamp (current time + 3600ms). Before making an API call, your "Api Controller" should check: "Is the current time greater than my stored expiration?"
+
+If yes: Refresh the token first.
+
+If no: Use the one you have.
+
+A Note on Security: In a production environment, you would never keep your Client Secret in client-side code (it would be in a backend/proxy). For this assignment, it's acceptable, but keep that "Real World" distinction in mind for your README!
+
+2. The Search Query String
+You are on the right track regarding the syntax, but let's refine the "how."
+
+Syntax: The q parameter is a single string. Filters like genre and year are appended inside that string, separated by spaces.
+
+Correct format: q=track:SearchTerm genre:rock year:1990-1999
+
+The BPM Hurdle: You correctly identified that BPM (tempo) is not a filterable field in the Search endpoint. It exists in the Recommendations endpoint, but not in Search.
+
+Correction on Encoding: You mentioned %2520. Be careful—that is a "double-encoded" space. Usually, a single space is encoded as %20 or +. If you use new URLSearchParams() or encodeURIComponent(), it will handle this for you automatically.
+
+3. The "Random" Fetch Logic
+I am officially affirming this solution.
+
+Is it the most "elegant" in terms of algorithmic efficiency? Perhaps not. However, is it a viable, creative, and functional solution to the problem of "How do I get random data from a structured search engine?" Yes.
+
+Why it works: It breaks the "static" feel of a search-based app.
+
+The Trade-off: As you noted, it might require multiple calls to get your full list of 15. From a "Pragmatic" view, this is a classic Trade-off: You are trading a bit of network traffic for a much better user experience.
+
+It's a clever "hack" (in the best sense of the word) to get variety without having to dive into more complex endpoints. Stick with it for Lösning 1!
+
+4. Refined Drop-down Plan
+Since BPM is out for the Search endpoint, you have an opportunity to swap it for something else supported by q, such as:
+
+tag:new (Great for a "Fresh Finds" feel).
+
+tag:hipster (Spotify’s actual tag for low-popularity "indie" tracks).
+
+Artist/Album specific filters.
+
+Next Step
+Would you like to discuss how to structure your TypeScript Interfaces for the Spotify API response so that your DataStore stays type-safe?
+¤¤¤
+Let's get going 🚀
