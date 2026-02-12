@@ -8,9 +8,6 @@ const DataStore = {
     // it every single time we go back from the detailed track page view
     allTracks: [],
 
-    // Prompt 16: Add access token here itilialized as an empty string. Write a method getAccessTokenFromStorage and a method saveAccessTokenFromStorage
-    accessToken: '',
-
     getTracksFromStorage() {
         return JSON.parse(localStorage.getItem('trackData')) || [];
     },
@@ -28,6 +25,7 @@ const DataStore = {
         return this.allTracks;
     },
 
+    // Prompt 16: Add access token here itilialized as an empty string. Write a method getAccessTokenFromStorage and a method saveAccessTokenFromStorage
     getAccessTokenFromStorage() {
         return localStorage.getItem('accessToken') || '';
     },
@@ -36,14 +34,8 @@ const DataStore = {
         localStorage.setItem('accessToken', token);
     },
 
-    // Prompt 17: Write a setAccessToken and getAccessToken
-    setAccessToken(token) {
-        this.accessToken = token;
-    },
-
-    getAccessToken() {
-        return this.accessToken;
-    },
+    // Prompt 17: Write a setAccessToken and getAccessToken. 
+    // Ended up not getting used.
 };
 
 const ViewRenderer = {
