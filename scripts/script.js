@@ -94,6 +94,8 @@ async function init() {
         if (!getAccessTokenFromStorage()) {
             const token = await fetchAccessToken();
             saveAccessTokenToStorage(token);
+
+            // Prompt 19: Also store an expiration timestamp (current time + 3600ms) in localStorage
         }
 
         // Fetch initial list and store it as cache in our DataStore
