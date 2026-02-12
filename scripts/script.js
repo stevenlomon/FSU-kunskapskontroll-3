@@ -1,4 +1,4 @@
-import { fetchAccessToken, fetchAll, fetchById } from "./api.js";
+import { generateAccessToken, fetchAll, fetchById } from "./api.js";
 
 const mainContainer = document.getElementById('container');
 
@@ -11,16 +11,16 @@ const DataStore = {
     getTracksFromStorage() {
         return JSON.parse(localStorage.getItem('trackData')) || [];
     },
-    
+
     // Prompt 7: Write a method like the one above called saveTracksToStorage that takes a list and saves it to localStorage under 'trackData' using JSON stringify
     saveTracksToStorage(tracks) {
         localStorage.setItem('trackData', JSON.stringify(tracks));
     },
-    
+
     setTracks(tracks) {
         this.allTracks = tracks;
     },
-    
+
     getTracks() {
         return this.allTracks;
     },
@@ -29,7 +29,7 @@ const DataStore = {
     getAccessTokenFromStorage() {
         return localStorage.getItem('accessToken') || '';
     },
-    
+
     saveAccessTokenToStorage(token) {
         localStorage.setItem('accessToken', token);
     },
@@ -49,7 +49,7 @@ const ViewRenderer = {
                 <p><strong>${track.name}</strong></p>
                 <p>${track.artists[0].name}</p>
                 <p>${track.album.name}</p>
-                <p>${track.album.release_date.substring(0,4)}</p>
+                <p>${track.album.release_date.substring(0, 4)}</p>
             </div>
         `).join('');
 
@@ -90,9 +90,9 @@ const ViewRenderer = {
 // Prompt 12: Write an async function called init that uses a try/catch block to initialize initList using fetchAll and then sets this using setTracks from DataStore and renders the list using renderList. Fill the innerHTML of mainContainer with an appropriate error message in the catch block.
 async function init() {
     try {
-        // Prompt 18: Use getAccessTokenFromStorage to check to see if we have an Access Token in localStorage. If we don't, call fetchAccessToken to generate one and save it to localStorage with saveAccessTokenToStorage
+        // Prompt 18: Use getAccessTokenFromStorage to check to see if we have an Access Token in localStorage. If we don't, call generateAccessToken to generate one and save it to localStorage with saveAccessTokenToStorage
         if (!getAccessTokenFromStorage()) {
-            const token = await fetchAccessToken();
+            const token = await generateAccessToken();
             saveAccessTokenToStorage(token);
 
             // Prompt 19: Also store an expiration timestamp (current time + 3600ms) in localStorage
