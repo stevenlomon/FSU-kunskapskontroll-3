@@ -8,6 +8,8 @@ const DataStore = {
     // it every single time we go back from the detailed track page view
     allTracks: [],
 
+    // Prompt 16 to be added here
+
     getTracksFromStorage() {
         return JSON.parse(localStorage.getItem('trackData')) || [];
     },
