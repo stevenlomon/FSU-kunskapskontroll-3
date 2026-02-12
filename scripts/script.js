@@ -91,13 +91,10 @@ const ViewRenderer = {
 async function init() {
     try {
         // Prompt 18: Use getAccessTokenFromStorage to check to see if we have an Access Token in localStorage. If we don't, call fetchAccessToken to generate one and save it to localStorage with saveAccessTokenToStorage
-```javascript
         if (!getAccessTokenFromStorage()) {
             const token = await fetchAccessToken();
             saveAccessTokenToStorage(token);
         }
-```
-
 
         // Fetch initial list and store it as cache in our DataStore
         const initList = await fetchAll();
