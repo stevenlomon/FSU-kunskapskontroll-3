@@ -58,7 +58,12 @@ const DataStore = {
 
 const ViewRenderer = {
     renderLoading(): void {
-        // Prompt 28 to be added here
+        // We wipe the stage and show a placeholder to signal 'Work in Progress'
+        mainContainer.innerHTML = `
+            <div class="loading-state">
+                
+            </div>
+        `;
     },
 
     // Prompt 9: Create a renderList function that takes `tracks` as its input argument. It should first clear mainContainer using innerHTML. Then it creates a const html variable using tracks and the map method to create an HTML string that contains a div with class `track-item` and data-id being track.id wrappaing three <p> tags: artist name, album title, and year. Append it to mainContainer using insertAdjacentHTML and 'beforeend'.

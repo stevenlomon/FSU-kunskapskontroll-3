@@ -299,3 +299,5 @@ select:hover {
 .hidden {
     display: none !important;
 }
+
+/* Prompt 28: Write a CSS animation for a Loading State UX Spinning Vinyl. It should be applied to the div with class `loading-state`
