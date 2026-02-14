@@ -169,6 +169,10 @@ bodyContainer.addEventListener('click', async (e) => {
 
         // Re-render the list. State Change: Detailed View -> List View
         ViewRenderer.renderList(tracks);
+
+        // Going back from detailed view should also toggle hidden in the correct nav elements!
+        detailedViewNav.classList.toggle('hidden');
+        listViewNav.classList.toggle('hidden');
     }
 
     // TRACE: Did we click 'Re-shuffle'?
