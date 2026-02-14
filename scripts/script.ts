@@ -30,7 +30,7 @@ const DataStore = {
         return localStorage.getItem('accessToken') || '';
     },
 
-    saveAccessTokenToStorage(token) {
+    saveAccessTokenToStorage(token: string): void {
         localStorage.setItem('accessToken', token);
     },
 
