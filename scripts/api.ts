@@ -24,7 +24,6 @@ export interface TracksList {
 }
 
 // Prompt 22: Write and export a TS interfact for TrackDetails. It's the fetch result from the track endpoint. It has an `album` object which we need `name` (string), `release_date` (string), `images` which once again is an array of ImageObject, each from which we need the `url` (string). We need `artists` which is an array of SimplifiedArtistObject, each from which we need `name` (string). We need `external_urls` which is an object from which we need the `spotify` key (string). The other things we need are `name` (string), explicit (bool), duration_ms (int). 
-```typescript
 export interface TrackDetails {
   album: {
     name: string;
@@ -43,8 +42,6 @@ export interface TrackDetails {
   explicit: boolean;
   duration_ms: number;
 }
-```
-
 
 // Code from https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
 // I'm well aware that in real production we would use the Python equivalent of .env and python-dotenv 
