@@ -63,8 +63,12 @@ async function getValidAccessToken() {
 async function fetchAll() {
   try {
     const token = getValidAccessToken();
+    const headers = { 'Authorization': 'Bearer ' + token }
 
-    const response = await fetch('http://localhost:3000/search?q=b&type=track&limit=15');
+    // Pass the headers in the options object
+    const response = await fetch('http://localhost:3000/search?q=b&type=track&limit=15', {
+      headers: headers
+    });
     const data = await response.json();
     const tracksData = data["tracks"]["items"];
     console.log("tracksData: ", tracksData);
@@ -78,8 +82,11 @@ async function fetchAll() {
 async function fetchById(trackId) {
   try {
     const token = getValidAccessToken();
+    const headers = { 'Authorization': 'Bearer ' + token }
     
-    const response = await fetch(`https://api.example.com/tracks/${trackId}`);
+    const response = await fetch(`https://api.example.com/tracks/${trackId}`, {
+      headers: headers
+    });
     const trackData = await response.json();
 
     return trackData
