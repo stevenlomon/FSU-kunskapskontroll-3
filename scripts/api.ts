@@ -103,18 +103,33 @@ async function fetchAll(): Promise<Track[]> {
   try {
     const token = await getValidAccessToken();
     const headers = { 'Authorization': 'Bearer ' + token }
+    const returnArray = [];
 
-    // Pass the headers in the options object
-    const response = await fetch('https://api.spotify.com/v1/search?q=b&type=track&market=SE&limit=10', {
-      method: 'GET',
-      headers: headers
-    });
+    // v1 of Random Fetch
+    // We want to fetch 10 random songs. For v1, the ooga-booga algorithm I've cooked up is:
+    // 1. Grab a random letter of the alphabet
+    // 2. Do 2 fetch requests with this letter "as q"
+    // 3. Append to returnArray
+    // 4. Repeat 5 times
 
-    // Cast the JSON to our TracksList interface first
-    const data: TracksList = await response.json();
+    for (let i = 0; i < 5; i++) {
+        let randomLetter = getRandomLetter();
+        console.log("Random letter: ", randomLetter);
+
+        // Pass the headers in the options object
+        const response = await fetch(`https://api.spotify.com/v1/search?q=${randomLetter}&type=track&market=SE&limit=2`, {
+          method: 'GET',
+          headers: headers
+        });
+    
+        // Cast the JSON to our TracksList interface first
+        const data: TracksList = await response.json();
+
+        // Use just the array. Now it matches Promise<Track[]>
+        returnArray.push(...data.tracks.items);
+    }
  
-    // Return just the array. Now it matches Promise<Track[]>
-    return data.tracks.items;
+    return returnArray;
 
   } catch (error) {
     console.error('Error fetching tracks:', error);
@@ -137,6 +152,14 @@ async function fetchById(trackId: string): Promise<TrackDetails> {
     console.error('Error fetching track details:', error);
     throw error;
   }
+}
+
+// Prompt 25: Write a function that returns a random lowercase letter of the alphabet. I'm thinking an array containing all characters of the alphabet and using an equivalent to Python's random.choice
+function getRandomLetter(): string {
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
+  // The `!` tells TS to ignore the possibility of undefined
+  return alphabet[Math.floor(Math.random() * alphabet.length)]!;
 }
 
 // Prompt 9: Export the three functions
