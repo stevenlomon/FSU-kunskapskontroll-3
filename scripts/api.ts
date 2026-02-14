@@ -81,7 +81,7 @@ async function generateAccessToken(): Promise<SpotifyTokenResponse> {
 }
 
 // Prompt 20: Write a function that checks if we have a valid access token in localStorage under the `tokenExpiration` key. If we don't, fetch one and store it
-async function getValidAccessToken() {
+async function getValidAccessToken(): Promise<string> {
   const token = localStorage.getItem('accessToken');
   const expiration = localStorage.getItem('tokenExpiration');
 
