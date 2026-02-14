@@ -142,8 +142,9 @@ async function fetchById(trackId: string): Promise<TrackDetails> {
     const token = await getValidAccessToken();
     const headers = { 'Authorization': 'Bearer ' + token }
     
-    const response = await fetch(`https://api.example.com/tracks/${trackId}`, {
-      headers: headers
+    const response = await fetch(`https://api.spotify.com/v1/tracks/${trackId}`, {
+        method: 'GET',
+        headers: headers
     });
     const trackData = await response.json();
 
