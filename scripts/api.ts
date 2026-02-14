@@ -1,9 +1,48 @@
+// Prompt 23: Write and export a TS interface for SpotifyTokenResponse. It has `access_token` and `token_type` that are both string, as well as `expires_in` which is a number
+export interface SpotifyTokenResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+}
+
+// Prompt 24: Write and export a TS interface for Track. Look at the two interfaces below. The Track interface includes everythign that is repeated
+export interface Track {
+  id: string;
+  name: string;
+  album: {
+    name: string;
+    release_date: string;
+    images: {
+      url: string;
+    }[];
+  };
+  artists: {
+    name: string;
+  }[];
+}
+
+// Prompt 21: Write and export a TS interface for TracksList. It's the result of a search and should contain `tracks` which is an object that in turn contains the `items` which is an array of trackObject. From these objects we want the `album` object: `name` as a string, `release_date` as a string, and `images` which is yet another nested object; from this object we need `url`. The next thing we need in the `items` object is `artists` which is an array containing artists objects. Final object from `itmes` is `external_urls` from which we only want the value at the `spotify` key which is a string. From each arist object we only need `name`. The rest of the things we need from `items` are id (string), name (string), duration_ms (int) and explicit (bool).
+export interface TracksList {
+  tracks: {
+    items: Track[];
+  };
+}
+
+// Prompt 22: Write and export a TS interfact for TrackDetails. It's the fetch result from the track endpoint. It has an `album` object which we need `name` (string), `release_date` (string), `images` which once again is an array of ImageObject, each from which we need the `url` (string). We need `artists` which is an array of SimplifiedArtistObject, each from which we need `name` (string). We need `external_urls` which is an object from which we need the `spotify` key (string). The other things we need are `name` (string), explicit (bool), duration_ms (int). 
+export interface TrackDetails extends Track {
+  explicit: boolean;
+  duration_ms: number;
+  external_urls: {
+    spotify: string;
+  };
+}
+
 // Code from https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
 // I'm well aware that in real production we would use the Python equivalent of .env and python-dotenv 
 // for secrets and credentials
 // The function was taken to a working state with the help of Gemini
 // Apparently the Spotify documentation is using ancient dinosaur way of writing JS?
-async function generateAccessToken() {
+async function generateAccessToken(): Promise<SpotifyTokenResponse> {
   const client_id = 'b207e4b236444a4ba0d58862c28a46a3';
   const client_secret = 'c48e58611d9041d6b613f5fa9727a96e';
 
@@ -42,7 +81,7 @@ async function generateAccessToken() {
 }
 
 // Prompt 20: Write a function that checks if we have a valid access token in localStorage under the `tokenExpiration` key. If we don't, fetch one and store it
-async function getValidAccessToken() {
+async function getValidAccessToken(): Promise<string> {
   const token = localStorage.getItem('accessToken');
   const expiration = localStorage.getItem('tokenExpiration');
 
@@ -60,10 +99,9 @@ async function getValidAccessToken() {
 }
 
 // Prompt 8: Write two async functions called fetchAll (zero input arguments) and fetchById (takes trackId) that both use try/catch blocks to make an await fetch request to a placeholder URL. The catch block should return an error from the requst if available
-async function fetchAll() {
+async function fetchAll(): Promise<Track[]> {
   try {
     const token = await getValidAccessToken();
-    console.log("token: ", token);
     const headers = { 'Authorization': 'Bearer ' + token }
 
     // Pass the headers in the options object
@@ -71,18 +109,20 @@ async function fetchAll() {
       method: 'GET',
       headers: headers
     });
-    const data = await response.json();
-    console.log("data: ", data);
-    const tracksData = data["tracks"]["items"];
-    console.log("tracksData: ", tracksData);
 
-    return tracksData
+    // Cast the JSON to our TracksList interface first
+    const data: TracksList = await response.json();
+ 
+    // Return just the array. Now it matches Promise<Track[]>
+    return data.tracks.items;
+
   } catch (error) {
-    return error;
+    console.error('Error fetching tracks:', error);
+    throw error;
   }
 }
 
-async function fetchById(trackId) {
+async function fetchById(trackId: string): Promise<TrackDetails> {
   try {
     const token = await getValidAccessToken();
     const headers = { 'Authorization': 'Bearer ' + token }
@@ -94,10 +134,11 @@ async function fetchById(trackId) {
 
     return trackData
   } catch (error) {
-    return error;
+    console.error('Error fetching track details:', error);
+    throw error;
   }
 }
 
-// Prompt 9: Export the two functions
+// Prompt 9: Export the three functions
 export { generateAccessToken, fetchAll, fetchById };
 
