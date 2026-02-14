@@ -63,13 +63,16 @@ async function getValidAccessToken() {
 async function fetchAll() {
   try {
     const token = await getValidAccessToken();
+    console.log("token: ", token);
     const headers = { 'Authorization': 'Bearer ' + token }
 
     // Pass the headers in the options object
-    const response = await fetch('https://api.spotify.com/v1/search?q=b&type=track&market=SE&limit=15', {
+    const response = await fetch('https://api.spotify.com/v1/search?q=b&type=track&market=SE&limit=10', {
+      method: 'GET',
       headers: headers
     });
     const data = await response.json();
+    console.log("data: ", data);
     const tracksData = data["tracks"]["items"];
     console.log("tracksData: ", tracksData);
 
