@@ -1,9 +1,19 @@
 import { type Track, type TrackDetails, generateAccessToken, fetchAll, fetchById } from "./api.js";
+import { isExplicit } from "./utils.js";
 
 const mainContainer = document.getElementById('container');
 if (!mainContainer) {
     throw new Error("Critical Error: Main container not found in the DOM.");
 }
+const detailedViewNav = document.querySelector('.navbar-detailed-view');
+if (!detailedViewNav) {
+    throw new Error("Critical Error: Detailed view container not found in the DOM.");
+}
+const listViewNav = document.querySelector('.navbar-list-view');
+if (!listViewNav) {
+    throw new Error("Critical Error: List view container not found in the DOM.");
+}
+
 
 // Prompt 6: Write an object called DataStore that should have an empty array called allTracks, a method getTracks that returns a JSON parsed object from localStorage under the key 'trackData' or an empty array; a method called setTracks that simply takes a tracks object and sets allTracks using `this`; and finally a getTracks method that returns allTracks using `this`.
 const DataStore = {
@@ -81,13 +91,17 @@ const ViewRenderer = {
                     <h3>${track.album.name}</h3>
                     <p>${track.album.release_date.substring(0, 4)}</p>
                     <p>${track.duration_ms}</p>
-                    <p>${track.explicit}</p>
+                    <p>${isExplicit(track.explicit)}</p>
                     <a href="${track.external_urls.spotify}" target="_blank">Listen on Spotify</a>
                 </div>
             </div>
         `;
 
         mainContainer.insertAdjacentHTML('beforeend', html);
+
+        // Detailed view should also toggle hidden in the correct nav elements!
+        detailedViewNav.classList.toggle('hidden');
+        listViewNav.classList.toggle('hidden');
     }
 }
 
@@ -143,6 +157,7 @@ mainContainer.addEventListener('click', async (e) => {
     // TRACE: Did we click 'Go Back'?
     // Prompt 15: If the id of e.target is 'back-btn', retrieve the initial list we cached with init and re-render it.
     if ((e.target as HTMLElement).id === 'back-btn') {
+        console.log("Back button pressed!");
         // We retrieve the initial list we cached during init()
         const tracks = DataStore.getTracks();
 
