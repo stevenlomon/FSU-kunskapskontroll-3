@@ -104,6 +104,8 @@ async function fetchAll(): Promise<Track[]> {
     const token = await getValidAccessToken();
     const headers = { 'Authorization': 'Bearer ' + token }
 
+    // v1 of Random Fetch
+
     // Pass the headers in the options object
     const response = await fetch('https://api.spotify.com/v1/search?q=b&type=track&market=SE&limit=10', {
       method: 'GET',
@@ -138,6 +140,8 @@ async function fetchById(trackId: string): Promise<TrackDetails> {
     throw error;
   }
 }
+
+// Prompt 25: Write a function that returns a random lowercase letter of the alphabet. I'm thinking an array containing all characters of the alphabet and using an equivalent to Python's random.choice
 
 // Prompt 9: Export the three functions
 export { generateAccessToken, fetchAll, fetchById };
