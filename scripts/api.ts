@@ -1,3 +1,5 @@
+import { getRandomLetter } from "./utils.js";
+
 // Prompt 23: Write and export a TS interface for SpotifyTokenResponse. It has `access_token` and `token_type` that are both string, as well as `expires_in` which is a number
 export interface SpotifyTokenResponse {
   access_token: string;
@@ -153,14 +155,6 @@ async function fetchById(trackId: string): Promise<TrackDetails> {
     console.error('Error fetching track details:', error);
     throw error;
   }
-}
-
-// Prompt 25: Write a function that returns a random lowercase letter of the alphabet. I'm thinking an array containing all characters of the alphabet and using an equivalent to Python's random.choice
-function getRandomLetter(): string {
-  const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
-
-  // The `!` tells TS to ignore the possibility of undefined
-  return alphabet[Math.floor(Math.random() * alphabet.length)]!;
 }
 
 // Prompt 9: Export the three functions
