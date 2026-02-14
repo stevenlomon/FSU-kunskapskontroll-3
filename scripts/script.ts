@@ -120,8 +120,9 @@ const ViewRenderer = {
 
 // Prompt 12: Write an async function called init that uses a try/catch block to initialize initList using fetchAll and then sets this using setTracks from DataStore and renders the list using renderList. Fill the innerHTML of mainContainer with an appropriate error message in the catch block.
 async function init() {
+    // Show our Loading State as we initialize the app for the first time!
     ViewRenderer.renderLoading();
-    
+
     try {
         // Prompt 18: Use getAccessTokenFromStorage to check to see if we have an Access Token in localStorage. If we don't, call generateAccessToken to generate one and save it to localStorage with saveAccessTokenToStorage
         if (!DataStore.getAccessTokenFromStorage()) {
@@ -189,6 +190,10 @@ bodyContainer.addEventListener('click', async (e) => {
     // TRACE: Did we click 'Re-shuffle'?
     if ((e.target as HTMLElement).id === 're-shuffle') {
         console.log("Re-shuffle button pressed!");
+        
+        // Show the Loading State as the app is re-initialized
+        ViewRenderer.renderLoading();
+
         // Simply re-initialize the list! Works for now since our init is rather simple
         init();
     }
