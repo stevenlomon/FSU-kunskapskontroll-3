@@ -91,9 +91,9 @@ const ViewRenderer = {
 async function init() {
     try {
         // Prompt 18: Use getAccessTokenFromStorage to check to see if we have an Access Token in localStorage. If we don't, call generateAccessToken to generate one and save it to localStorage with saveAccessTokenToStorage
-        if (!getAccessTokenFromStorage()) {
+        if (!DataStore.getAccessTokenFromStorage()) {
             const token = await generateAccessToken();
-            saveAccessTokenToStorage(token);
+            DataStore.saveAccessTokenToStorage(token);
 
             // Prompt 19: Also store an expiration timestamp (current time + 3600ms) in localStorage
             localStorage.setItem('tokenExpiration', Date.now() + 3600);
