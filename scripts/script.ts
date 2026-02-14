@@ -115,6 +115,10 @@ async function init() {
         // Render our initial list
         ViewRenderer.renderList(initList);
     } catch (error) {
+        if (!mainContainer) {
+            console.error("Main element not found");
+            return
+        }
         mainContainer.innerHTML = `Error when rendering site: ${error}. Please try again.`;
     }
 }
