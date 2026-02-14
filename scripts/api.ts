@@ -42,7 +42,7 @@ export interface TrackDetails extends Track {
 // for secrets and credentials
 // The function was taken to a working state with the help of Gemini
 // Apparently the Spotify documentation is using ancient dinosaur way of writing JS?
-async function generateAccessToken() {
+async function generateAccessToken(): Promise<SpotifyTokenResponse> {
   const client_id = 'b207e4b236444a4ba0d58862c28a46a3';
   const client_secret = 'c48e58611d9041d6b613f5fa9727a96e';
 
