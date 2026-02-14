@@ -92,7 +92,7 @@ const ViewRenderer = {
                     <p>${track.album.release_date.substring(0, 4)}</p>
                     <p>${track.duration_ms}</p>
                     <p>${isExplicit(track.explicit)}</p>
-                    <a href="${track.external_urls.spotify}" target="_blank">Listen on Spotify</a>
+                    <button><a href="${track.external_urls.spotify}" target="_blank">Listen on Spotify</a></button>
                 </div>
             </div>
         `;

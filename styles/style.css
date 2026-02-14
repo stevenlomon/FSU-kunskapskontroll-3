@@ -14,6 +14,12 @@ body {
     margin: 0;
 }
 
+/* Prompt 27: Reset the style for <a> tags */
+a {
+    color: var(--spotify-black);
+    text-decoration: none;
+}
+
 /* --- THE FIX: Centered Layout Container --- */
 .layout-container {
     max-width: 1600px; /* Limits width on large screens */
