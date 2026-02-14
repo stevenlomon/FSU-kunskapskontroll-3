@@ -41,14 +41,18 @@ const DataStore = {
 
 const ViewRenderer = {
     // Prompt 9: Create a renderList function that takes `tracks` as its input argument. It should first clear mainContainer using innerHTML. Then it creates a const html variable using tracks and the map method to create an HTML string that contains a div with class `track-item` and data-id being track.id wrappaing three <p> tags: artist name, album title, and year. Append it to mainContainer using insertAdjacentHTML and 'beforeend'.
-    renderList(tracks) {
+    renderList(tracks: Track[]) {
+        if (!mainContainer) {
+            console.error("Main element not found");
+            return
+        }
         mainContainer.innerHTML = '';
 
         const tracksHTML = tracks.map(track => `
             <div class="track-item" data-id="${track.id}">
-                <img src="${track.album.images[0].url}" alt="Album Cover">
+                <img src="${track.album.images?.[0]?.url} || ./img/404-not-found" alt="Album Cover">
                 <p><strong>${track.name}</strong></p>
-                <p>${track.artists[0].name}</p>
+                <p>${track.artists?.[0]?.name}</p>
                 <p>${track.album.name}</p>
                 <p>${track.album.release_date.substring(0, 4)}</p>
             </div>
