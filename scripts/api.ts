@@ -1,4 +1,30 @@
 // Prompt 21: Write and export a TS interface for TracksList. It's the result of a search and should contain `tracks` which is an object that in turn contains the `items` which is an array of trackObject. From these objects we want the `album` object: `name` as a string, `release_date` as a string, and `images` which is yet another nested object; from this object we need `url`. The next thing we need in the `items` object is `artists` which is an array containing artists objects. Final object from `itmes` is `external_urls` from which we only want the value at the `spotify` key which is a string. From each arist object we only need `name`. The rest of the things we need from `items` are id (string), name (string), duration_ms (int) and explicit (bool).
+```typescript
+export interface TracksList {
+  tracks: {
+    items: {
+      album: {
+        name: string;
+        release_date: string;
+        images: {
+          url: string;
+        }[];
+      };
+      artists: {
+        name: string;
+      }[];
+      external_urls: {
+        spotify: string;
+      };
+      id: string;
+      name: string;
+      duration_ms: number;
+      explicit: boolean;
+    }[];
+  };
+}
+```
+
 
 // Code from https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
 // I'm well aware that in real production we would use the Python equivalent of .env and python-dotenv 
