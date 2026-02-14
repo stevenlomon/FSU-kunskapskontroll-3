@@ -7,6 +7,7 @@ export interface SpotifyTokenResponse {
 
 // Prompt 24: Write and export a TS interface for Track. Look at the two interfaces below. The Track interface includes everythign that is repeated
 export interface Track {
+  id: string;
   name: string;
   album: {
     name: string;
@@ -23,41 +24,17 @@ export interface Track {
 // Prompt 21: Write and export a TS interface for TracksList. It's the result of a search and should contain `tracks` which is an object that in turn contains the `items` which is an array of trackObject. From these objects we want the `album` object: `name` as a string, `release_date` as a string, and `images` which is yet another nested object; from this object we need `url`. The next thing we need in the `items` object is `artists` which is an array containing artists objects. Final object from `itmes` is `external_urls` from which we only want the value at the `spotify` key which is a string. From each arist object we only need `name`. The rest of the things we need from `items` are id (string), name (string), duration_ms (int) and explicit (bool).
 export interface TracksList {
   tracks: {
-    items: {
-      album: {
-        name: string;
-        release_date: string;
-        images: {
-          url: string;
-        }[];
-      };
-      artists: {
-        name: string;
-      }[];
-      id: string;
-      name: string;
-    }[];
+    items: Track[];
   };
 }
 
 // Prompt 22: Write and export a TS interfact for TrackDetails. It's the fetch result from the track endpoint. It has an `album` object which we need `name` (string), `release_date` (string), `images` which once again is an array of ImageObject, each from which we need the `url` (string). We need `artists` which is an array of SimplifiedArtistObject, each from which we need `name` (string). We need `external_urls` which is an object from which we need the `spotify` key (string). The other things we need are `name` (string), explicit (bool), duration_ms (int). 
-export interface TrackDetails {
-  album: {
-    name: string;
-    release_date: string;
-    images: {
-      url: string;
-    }[];
-  };
-  artists: {
-    name: string;
-  }[];
+export interface TrackDetails extends Track {
+  explicit: boolean;
+  duration_ms: number;
   external_urls: {
     spotify: string;
   };
-  name: string;
-  explicit: boolean;
-  duration_ms: number;
 }
 
 // Code from https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
