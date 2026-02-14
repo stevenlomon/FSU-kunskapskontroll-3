@@ -151,6 +151,11 @@ mainContainer.addEventListener('click', async (e) => {
     }
 
     // TRACE: Did we click 'Re-shuffle'?
+    if ((e.target as HTMLElement).id === 're-shuffle') {
+        console.log("Re-shuffle button pressed!");
+        // Simply re-initialize the list! Works for now since our init is rather simple
+        init();
+    }
 });
 
 // "Power on" our Full Stack app
