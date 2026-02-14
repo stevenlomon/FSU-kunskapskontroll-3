@@ -120,6 +120,8 @@ const ViewRenderer = {
 
 // Prompt 12: Write an async function called init that uses a try/catch block to initialize initList using fetchAll and then sets this using setTracks from DataStore and renders the list using renderList. Fill the innerHTML of mainContainer with an appropriate error message in the catch block.
 async function init() {
+    ViewRenderer.renderLoading();
+    
     try {
         // Prompt 18: Use getAccessTokenFromStorage to check to see if we have an Access Token in localStorage. If we don't, call generateAccessToken to generate one and save it to localStorage with saveAccessTokenToStorage
         if (!DataStore.getAccessTokenFromStorage()) {
