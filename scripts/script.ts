@@ -1,6 +1,9 @@
 import { type Track, type TrackDetails, generateAccessToken, fetchAll, fetchById } from "./api.js";
 
 const mainContainer = document.getElementById('container');
+if (!mainContainer) {
+    throw new Error("Critical Error: Main container not found in the DOM.");
+}
 
 // Prompt 6: Write an object called DataStore that should have an empty array called allTracks, a method getTracks that returns a JSON parsed object from localStorage under the key 'trackData' or an empty array; a method called setTracks that simply takes a tracks object and sets allTracks using `this`; and finally a getTracks method that returns allTracks using `this`.
 const DataStore = {
@@ -42,10 +45,6 @@ const DataStore = {
 const ViewRenderer = {
     // Prompt 9: Create a renderList function that takes `tracks` as its input argument. It should first clear mainContainer using innerHTML. Then it creates a const html variable using tracks and the map method to create an HTML string that contains a div with class `track-item` and data-id being track.id wrappaing three <p> tags: artist name, album title, and year. Append it to mainContainer using insertAdjacentHTML and 'beforeend'.
     renderList(tracks: Track[]) {
-        if (!mainContainer) {
-            console.error("Main element not found");
-            return
-        }
         mainContainer.innerHTML = '';
 
         const tracksHTML = tracks.map(track => `
@@ -69,10 +68,6 @@ const ViewRenderer = {
 
     renderDetailed(track: TrackDetails) {
         // Prompt 13: Write the renderDetailed method. Just like renderList, it also starts by first clearing the mainContainer. Here we can create html directly; a div with class track-detailed-view, inside there are two divs; track-detailed-view-media-wrapper wraps the image, track-detailed-view-info-wrapper takes the title as an h1, artist name and album title as h3, year, duration and explicit as p tags and finally a "Listen on Spotify" button that has the href from the track data. Append to mainContainer using insertAdjacentHTML.
-        if (!mainContainer) {
-            console.error("Main element not found");
-            return
-        }
         mainContainer.innerHTML = '';
 
         const html = `
