@@ -14,7 +14,17 @@ body {
     margin: 0;
 }
 
-/* Prompt 27: Reset the style for <a> tags
+/* Prompt 27: Reset the style for <a> tags */
+a {
+    color: var(--spotify-green);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #1fdf64;
+    text-decoration: underline;
+}
 
 /* --- THE FIX: Centered Layout Container --- */
 .layout-container {
