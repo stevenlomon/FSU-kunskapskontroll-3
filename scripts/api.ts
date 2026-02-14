@@ -142,6 +142,13 @@ async function fetchById(trackId: string): Promise<TrackDetails> {
 }
 
 // Prompt 25: Write a function that returns a random lowercase letter of the alphabet. I'm thinking an array containing all characters of the alphabet and using an equivalent to Python's random.choice
+```typescript
+function getRandomLetter(): string {
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+  return alphabet[Math.floor(Math.random() * alphabet.length)];
+}
+```
+
 
 // Prompt 9: Export the three functions
 export { generateAccessToken, fetchAll, fetchById };
