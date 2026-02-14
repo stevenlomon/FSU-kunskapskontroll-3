@@ -26,7 +26,7 @@ const DataStore = {
     },
 
     // Prompt 16: Add access token here itilialized as an empty string. Write a method getAccessTokenFromStorage and a method saveAccessTokenFromStorage
-    getAccessTokenFromStorage() {
+    getAccessTokenFromStorage(): string {
         return localStorage.getItem('accessToken') || '';
     },
 
