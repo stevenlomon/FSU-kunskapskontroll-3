@@ -103,8 +103,14 @@ async function fetchAll(): Promise<Track[]> {
   try {
     const token = await getValidAccessToken();
     const headers = { 'Authorization': 'Bearer ' + token }
+    const returnArray = [];
 
     // v1 of Random Fetch
+    // We want to fetch 10 random songs. For v1, the ooga-booga algorithm I've cooked up is:
+    // 1. Grab a random letter of the alphabet
+    // 2. Do 2 fetch requests with this letter as q
+    // 3. Append to returnArray
+    // 4. Repeat 5 times
 
     // Pass the headers in the options object
     const response = await fetch('https://api.spotify.com/v1/search?q=b&type=track&market=SE&limit=10', {
