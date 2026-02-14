@@ -12,13 +12,8 @@ export interface TracksList {
       artists: {
         name: string;
       }[];
-      external_urls: {
-        spotify: string;
-      };
       id: string;
       name: string;
-      duration_ms: number;
-      explicit: boolean;
     }[];
   };
 }
