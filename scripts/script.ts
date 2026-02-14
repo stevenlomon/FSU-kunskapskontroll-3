@@ -6,10 +6,11 @@ const mainContainer = document.getElementById('container');
 const DataStore = {
     // We store and "cache" the list here so that we don't have to fetch
     // it every single time we go back from the detailed track page view
-    allTracks: [] as Track[] // Tell TS this starts empty but will hold Tracks
+    allTracks: [] as Track[], // Tell TS this starts empty but will hold Tracks
 
-    getTracksFromStorage() {
-        return JSON.parse(localStorage.getItem('trackData')) || [];
+    getTracksFromStorage(): Track[] {
+        const data = localStorage.getItem('trackData'); // Attempt to retrieve data
+        return data ? JSON.parse(data) : []; // If data was retrieved, parse it, else return an empty list
     },
 
     // Prompt 7: Write a method like the one above called saveTracksToStorage that takes a list and saves it to localStorage under 'trackData' using JSON stringify
