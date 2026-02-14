@@ -1,4 +1,4 @@
-import { fetchAll, fetchById } from "./api.js";
+import { generateAccessToken, fetchAll, fetchById } from "./api.js";
 
 const mainContainer = document.getElementById('container');
 
@@ -20,10 +20,22 @@ const DataStore = {
     setTracks(tracks) {
         this.allTracks = tracks;
     },
-    
+
     getTracks() {
         return this.allTracks;
-    }
+    },
+
+    // Prompt 16: Add access token here itilialized as an empty string. Write a method getAccessTokenFromStorage and a method saveAccessTokenFromStorage
+    getAccessTokenFromStorage() {
+        return localStorage.getItem('accessToken') || '';
+    },
+
+    saveAccessTokenToStorage(token) {
+        localStorage.setItem('accessToken', token);
+    },
+
+    // Prompt 17: Write a setAccessToken and getAccessToken. 
+    // Ended up not getting used.
 };
 
 const ViewRenderer = {
@@ -37,7 +49,7 @@ const ViewRenderer = {
                 <p><strong>${track.name}</strong></p>
                 <p>${track.artists[0].name}</p>
                 <p>${track.album.name}</p>
-                <p>${track.album.release_date.substring(0,4)}</p>
+                <p>${track.album.release_date.substring(0, 4)}</p>
             </div>
         `).join('');
 
@@ -78,6 +90,15 @@ const ViewRenderer = {
 // Prompt 12: Write an async function called init that uses a try/catch block to initialize initList using fetchAll and then sets this using setTracks from DataStore and renders the list using renderList. Fill the innerHTML of mainContainer with an appropriate error message in the catch block.
 async function init() {
     try {
+        // Prompt 18: Use getAccessTokenFromStorage to check to see if we have an Access Token in localStorage. If we don't, call generateAccessToken to generate one and save it to localStorage with saveAccessTokenToStorage
+        if (!DataStore.getAccessTokenFromStorage()) {
+            const token = await generateAccessToken();
+            DataStore.saveAccessTokenToStorage(token);
+
+            // Prompt 19: Also store an expiration timestamp (current time + 3600ms) in localStorage
+            localStorage.setItem('tokenExpiration', Date.now() + 3600);
+        }
+
         // Fetch initial list and store it as cache in our DataStore
         const initList = await fetchAll();
         DataStore.setTracks(initList);
