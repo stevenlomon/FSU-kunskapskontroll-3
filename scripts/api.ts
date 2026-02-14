@@ -99,10 +99,9 @@ async function getValidAccessToken(): Promise<string> {
 }
 
 // Prompt 8: Write two async functions called fetchAll (zero input arguments) and fetchById (takes trackId) that both use try/catch blocks to make an await fetch request to a placeholder URL. The catch block should return an error from the requst if available
-async function fetchAll(): Promise<TracksList> {
+async function fetchAll(): Promise<Track[]> {
   try {
     const token = await getValidAccessToken();
-    console.log("token: ", token);
     const headers = { 'Authorization': 'Bearer ' + token }
 
     // Pass the headers in the options object
@@ -110,12 +109,13 @@ async function fetchAll(): Promise<TracksList> {
       method: 'GET',
       headers: headers
     });
-    const data = await response.json();
-    console.log("data: ", data);
-    const tracksData = data["tracks"]["items"];
-    console.log("tracksData: ", tracksData);
 
-    return tracksData
+    // Cast the JSON to our TracksList interface first
+    const data: TracksList = await response.json();
+ 
+    // Return just the array. Now it matches Promise<Track[]>
+    return data.tracks.items;
+
   } catch (error) {
     console.error('Error fetching tracks:', error);
     throw error;
