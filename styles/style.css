@@ -299,3 +299,37 @@ select:hover {
 .hidden {
     display: none !important;
 }
+
+/* Prompt 28: Write a CSS animation for a Loading State UX Spinning vinyl with a white thin border. It should be centered in the screen and pretty big! It should be applied to the div with class `loading-state` */
+.loading-state {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    border: 3px solid var(--spotify-white);
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #383838, var(--spotify-black));
+    animation: spin 2s linear infinite;
+    z-index: 9999;
+    box-shadow: 0 0 30px rgba(30, 215, 96, 0.3);
+}
+
+.loading-state::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background-color: var(--spotify-black);
+    border-radius: 50%;
+    border: 2px solid var(--spotify-green);
+}
+
+@keyframes spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
