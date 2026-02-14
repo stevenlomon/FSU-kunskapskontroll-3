@@ -122,7 +122,7 @@ async function fetchAll(): Promise<TracksList> {
   }
 }
 
-async function fetchById(trackId) {
+async function fetchById(trackId: string): Promise<TrackDetails> {
   try {
     const token = await getValidAccessToken();
     const headers = { 'Authorization': 'Bearer ' + token }
@@ -134,7 +134,8 @@ async function fetchById(trackId) {
 
     return trackData
   } catch (error) {
-    return error;
+    console.error('Error fetching track details:', error);
+    throw error;
   }
 }
 
