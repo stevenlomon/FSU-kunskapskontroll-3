@@ -14,7 +14,7 @@ const DataStore = {
     },
 
     // Prompt 7: Write a method like the one above called saveTracksToStorage that takes a list and saves it to localStorage under 'trackData' using JSON stringify
-    saveTracksToStorage(tracks) {
+    saveTracksToStorage(tracks: Track[]): void {
         localStorage.setItem('trackData', JSON.stringify(tracks));
     },
 
