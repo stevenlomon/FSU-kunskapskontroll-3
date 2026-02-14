@@ -18,11 +18,11 @@ const DataStore = {
         localStorage.setItem('trackData', JSON.stringify(tracks));
     },
 
-    setTracks(tracks) {
+    setTracks(tracks: Track[]): void {
         this.allTracks = tracks;
     },
 
-    getTracks() {
+    getTracks(): Track[] {
         return this.allTracks;
     },
 
