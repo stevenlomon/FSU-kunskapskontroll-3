@@ -149,6 +149,8 @@ mainContainer.addEventListener('click', async (e) => {
         // Re-render the list. State Change: Detailed View -> List View
         ViewRenderer.renderList(tracks);
     }
+
+    // TRACE: Did we click 'Re-shuffle'?
 });
 
 // "Power on" our Full Stack app
