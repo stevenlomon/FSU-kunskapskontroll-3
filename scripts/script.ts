@@ -1,4 +1,4 @@
-import { generateAccessToken, fetchAll, fetchById } from "./api.js";
+import { type Track, generateAccessToken, fetchAll, fetchById } from "./api.js";
 
 const mainContainer = document.getElementById('container');
 
@@ -6,7 +6,7 @@ const mainContainer = document.getElementById('container');
 const DataStore = {
     // We store and "cache" the list here so that we don't have to fetch
     // it every single time we go back from the detailed track page view
-    allTracks: [],
+    allTracks: [] as Track[] // Tell TS this starts empty but will hold Tracks
 
     getTracksFromStorage() {
         return JSON.parse(localStorage.getItem('trackData')) || [];
