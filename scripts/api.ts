@@ -139,6 +139,6 @@ async function fetchById(trackId: string): Promise<TrackDetails> {
   }
 }
 
-// Prompt 9: Export the two functions
+// Prompt 9: Export the three functions
 export { generateAccessToken, fetchAll, fetchById };
 
