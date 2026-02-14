@@ -57,8 +57,12 @@ const DataStore = {
 };
 
 const ViewRenderer = {
+    renderLoading(): void {
+        // Prompt 28 to be added here
+    },
+
     // Prompt 9: Create a renderList function that takes `tracks` as its input argument. It should first clear mainContainer using innerHTML. Then it creates a const html variable using tracks and the map method to create an HTML string that contains a div with class `track-item` and data-id being track.id wrappaing three <p> tags: artist name, album title, and year. Append it to mainContainer using insertAdjacentHTML and 'beforeend'.
-    renderList(tracks: Track[]) {
+    renderList(tracks: Track[]): void {
         mainContainer.innerHTML = '';
 
         const tracksHTML = tracks.map(track => `
@@ -80,7 +84,7 @@ const ViewRenderer = {
         mainContainer.insertAdjacentHTML('beforeend', html);
     },
 
-    renderDetailed(track: TrackDetails) {
+    renderDetailed(track: TrackDetails): void {
         // Prompt 13: Write the renderDetailed method. Just like renderList, it also starts by first clearing the mainContainer. Here we can create html directly; a div with class track-detailed-view, inside there are two divs; track-detailed-view-media-wrapper wraps the image, track-detailed-view-info-wrapper takes the title as an h1, artist name and album title as h3, year, duration and explicit as p tags and finally a "Listen on Spotify" button that has the href from the track data. Append to mainContainer using insertAdjacentHTML.
         mainContainer.innerHTML = '';
 
