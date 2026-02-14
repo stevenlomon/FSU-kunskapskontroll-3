@@ -300,4 +300,16 @@ select:hover {
     display: none !important;
 }
 
-/* Prompt 28: Write a CSS animation for a Loading State UX Spinning vinyl with a white thin border. It should be applied to the div with class `loading-state`
+/* Prompt 28: Write a CSS animation for a Loading State UX Spinning vinyl with a white thin border. It should be applied to the div with class `loading-state` */
+.loading-state {
+    width: 60px;
+    height: 60px;
+    border: 2px solid var(--spotify-white);
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
