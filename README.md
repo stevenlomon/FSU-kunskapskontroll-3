@@ -658,3 +658,6 @@ It’s great to see the progress! Day 4 is usually when the "rubber meets the ro
 ¤¤¤
 
 Let's get going 🚀
+
+# Day 6
+Vi.. we didn't get going very far så att säga haha. Inte en enda commit igår pga circumstances. Men jag har en klar bild av vad jag behöver göra nu. Ska bli klar med denna PR, merge it, och sen tacklar jag the inevitable TypeScript re-factor innan jag skriver resten i TypeScipt
