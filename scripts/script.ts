@@ -154,6 +154,7 @@ mainContainer.addEventListener('click', async (e) => {
         }
     }
 
+    // To be fixed
     // TRACE: Did we click 'Go Back'?
     // Prompt 15: If the id of e.target is 'back-btn', retrieve the initial list we cached with init and re-render it.
     if ((e.target as HTMLElement).id === 'back-btn') {
