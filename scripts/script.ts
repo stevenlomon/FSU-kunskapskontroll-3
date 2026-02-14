@@ -49,7 +49,7 @@ const ViewRenderer = {
 
         const tracksHTML = tracks.map(track => `
             <div class="track-item" data-id="${track.id}">
-                <img src="${track.album.images?.[0]?.url} || ./img/404-not-found" alt="Album Cover">
+                <img src="${track.album.images?.[0]?.url || './img/404-not-found.png'}" alt="Album Cover">
                 <p><strong>${track.name}</strong></p>
                 <p>${track.artists?.[0]?.name}</p>
                 <p>${track.album.name}</p>
@@ -73,7 +73,7 @@ const ViewRenderer = {
         const html = `
             <div class="track-detailed-view">
                 <div class="track-detailed-view-media-wrapper">
-                    <img src="${track.album.images?.[0]?.url} || ./img/404-not-found" alt="${track.name}">
+                    <img src="${track.album.images?.[0]?.url || './img/404-not-found.png'}" alt="${track.name}">
                 </div>
                 <div class="track-detailed-view-info-wrapper">
                     <h1>${track.name}</h1>
