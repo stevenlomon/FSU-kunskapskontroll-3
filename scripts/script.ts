@@ -5,6 +5,10 @@ const mainContainer = document.getElementById('container');
 if (!mainContainer) {
     throw new Error("Critical Error: Main container not found in the DOM.");
 }
+const bodyContainer = document.querySelector('body'); // For Click Event Delegation
+if (!bodyContainer) {
+    throw new Error("Critical Error: Body container not found in the DOM.");
+}
 const detailedViewNav = document.querySelector('.navbar-detailed-view');
 if (!detailedViewNav) {
     throw new Error("Critical Error: Detailed view container not found in the DOM.");
@@ -132,12 +136,13 @@ async function init() {
     }
 }
 
-mainContainer.addEventListener('click', async (e) => {
+bodyContainer.addEventListener('click', async (e) => {
     // What did we click?
     // TRACE: Did we click a track card?
     // Prompt 14: First, create a const variable trackCard using e.target, closest and the track-item class. Then, write the first click case: if we have a trackCard, create a pointer using dataset.id followed by a try/catch that fetches the track by id and renders it usign renderDetailed. Fall back to List view on error and handle the error gracefully.
     // Use "as HTMLElement" to unlock element-specific methods
     const target = e.target as HTMLElement; 
+    console.log("Target: ", target);
     const trackCard = target.closest('.track-item') as HTMLElement;
 
     if (trackCard) {
