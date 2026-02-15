@@ -150,6 +150,17 @@ function buildSearchUrl(): string {
 }
 
 // Prompt 35: Write an async function called triggerNewSearch. It should start by calling renderLoading from the ViewRenderer. Then in a try/catch block, it initializes `tracks` using fetchAll, passing all keys from FilterState as input argument. It then calls setTracks and renderList with `tracks`.
+async function triggerNewSearch(): Promise<void> {
+    ViewRenderer.renderLoading();
+
+    try {
+        const tracks = await fetchAll(FilterState.query, FilterState.genre, FilterState.decade, FilterState.explicit);
+        DataStore.setTracks(tracks);
+        ViewRenderer.renderList(tracks);
+    } catch (error) {
+        mainContainer.innerHTML = `Error during search: ${error}. Please try again.`;
+    }
+}
 
 // Prompt 12: Write an async function called init that uses a try/catch block to initialize initList using fetchAll and then sets this using setTracks from DataStore and renders the list using renderList. Fill the innerHTML of mainContainer with an appropriate error message in the catch block.
 async function init() {
