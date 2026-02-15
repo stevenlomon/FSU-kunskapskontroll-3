@@ -154,10 +154,20 @@ async function triggerNewSearch(): Promise<void> {
     ViewRenderer.renderLoading();
 
     try {
-        const tracks = await fetchAll(FilterState.query, FilterState.genre, FilterState.decade, FilterState.explicit);
+        const tracks = await fetchAll({
+            q: FilterState.query,
+            genre: FilterState.genre,
+            decade: FilterState.decade,
+            explicit: FilterState.explicit
+        });
+
         DataStore.setTracks(tracks);
         ViewRenderer.renderList(tracks);
     } catch (error) {
+        if (!mainContainer) {
+            console.error("Main element not found");
+            return
+        }
         mainContainer.innerHTML = `Error during search: ${error}. Please try again.`;
     }
 }
