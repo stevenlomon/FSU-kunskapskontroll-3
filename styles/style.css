@@ -295,7 +295,15 @@ select:hover {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Prompt 29: Model the above and write a simple "Fade Back" animation that is shown when switching from Detailed View back to List View
+/* Prompt 29: Model the above and write a simple "Fade Back" animation that is shown when switching from Detailed View back to List View */
+@keyframes fadeBack {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(20px); }
+}
+
+.fade-back {
+    animation: fadeBack 0.5s ease-out;
+}
 
 /* Prompt 11: Write a hidden class that can be toggled on divs to hide/show them */
 .hidden {
