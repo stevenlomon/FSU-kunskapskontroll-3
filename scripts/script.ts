@@ -176,6 +176,10 @@ bodyContainer.addEventListener('click', async (e) => {
     // Prompt 15: If the id of e.target is 'back-btn', retrieve the initial list we cached with init and re-render it.
     if ((e.target as HTMLElement).id === 'back-btn') {
         console.log("Back button pressed!");
+
+        // The "Fade Back" animation to be added here
+        
+
         // We retrieve the initial list we cached during init()
         const tracks = DataStore.getTracks();
 
