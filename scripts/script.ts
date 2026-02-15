@@ -319,6 +319,7 @@ listViewNav.addEventListener('change', (e) => {
                 break;
         }
 
+        DataStore.saveFilterStateToStorage(); // Use our new function to save FilterState to localStorage!
         triggerNewSearch();
     }
 });
