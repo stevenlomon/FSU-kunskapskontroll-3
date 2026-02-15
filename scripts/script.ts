@@ -20,7 +20,7 @@ if (!listViewNav) {
 
 // Prompt 31: Write a FilterState object that should hold `query`, `genre`, `decade`, and `explicit` as keys, all initialized as empty strings
 const FilterState = {
-    query: '',
+    q: '',
     genre: '',
     decade: '',
     explicit: '',
@@ -154,12 +154,7 @@ async function triggerNewSearch(): Promise<void> {
     ViewRenderer.renderLoading();
 
     try {
-        const tracks = await fetchAll({
-            q: FilterState.query,
-            genre: FilterState.genre,
-            decade: FilterState.decade,
-            explicit: FilterState.explicit
-        });
+        const tracks = await fetchAll(FilterState);
 
         DataStore.setTracks(tracks);
         ViewRenderer.renderList(tracks);
