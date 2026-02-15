@@ -1,5 +1,5 @@
 import { type Track, type TrackDetails, generateAccessToken, fetchAll, fetchById } from "./api.js";
-import { getRandomLetter, isExplicit, convertMillisecondsDuration } from "./utils.js";
+import { getRandomLetter, isExplicit, convertMillisecondsDuration, convertDecadeFormat } from "./utils.js";
 
 const mainContainer = document.getElementById('container');
 if (!mainContainer) {
