@@ -131,7 +131,7 @@ function buildSearchUrl(): string {
 
     // If user typed something, use it. Otherwise, use the random letter.
     // This is "Design by Contract": the API gets what it expects.
-    const searchTerm = FilterState.query || randomLetter;
+    const searchTerm = FilterState.q || randomLetter;
 
     const base = `http://localhost:3000/search`; // localhost for now
     
@@ -140,7 +140,7 @@ function buildSearchUrl(): string {
         q: searchTerm,
         type: 'track',
         market: 'SE',
-        limit: FilterState.query ? '10' : '2', // 10 for real user search, 2 for the random algorithm
+        limit: FilterState.q ? '10' : '2', // 10 for real user search, 2 for the random algorithm
         genre: FilterState.genre,
         decade: FilterState.decade,
         explicit: FilterState.explicit,
