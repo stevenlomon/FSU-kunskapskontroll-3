@@ -119,9 +119,16 @@ async function fetchAll(params: Record<string, string>): Promise<Track[]> {
     // Prompt 34: Write the logic if we're not in "search mode". Update `query` to be a random letter using getRandomLetter. Update offset by first initializing `maxOffset` to 50 and then using Math.floor, Math.random() and maxOffset.
     if (!isSearchMode) {
       query = getRandomLetter();
+
+      // Generate a random offset
+      // Real Spotify allows up to 1000. Our Dummy Backend has ~100 items.
+      // We'll use 50 to be safe for the Dummy, but we can bump this to 900 for real API.
       const maxOffset = 50;
       offset = Math.floor(Math.random() * maxOffset);
     }
+
+    // 3. Construct the clean URL (The Pragmatic Way)
+    // Prompt 35: Initialize searchParams using URLSearchParams with `q`, `type` ('track'), `market` ('SE'), `limit` (10), `offset` (our offset as a string), and then spread the rest of the params keys.
 
     for (let i = 0; i < 5; i++) {
         let randomLetter = getRandomLetter();
