@@ -138,26 +138,24 @@ async function fetchAll(params: Record<string, string>): Promise<Track[]> {
       ...params
     });
 
-    for (let i = 0; i < 5; i++) {
-        let randomLetter = getRandomLetter();
-        console.log("Random letter: ", randomLetter);
+    // 4. The single elegant request
+    try {
+      // Pass the headers in the options object
+      // https://api.spotify.com/v1/search?q= is the real endpoint
+      const response = await fetch(`http://localhost:3000/search?${searchParams.toString()}`, {
+        method: 'GET',
+        headers: headers
+      });
 
-        // Pass the headers in the options object
-        // https://api.spotify.com/v1/search?q= is the real endpoint
-        const response = await fetch(`http://localhost:3000/search?q=${randomLetter}&type=track&market=SE&limit=2`, {
-          method: 'GET',
-          headers: headers
-        });
-    
-        // Cast the JSON to our TracksList interface first
-        const data: TracksList = await response.json();
+      if (!response.ok) {
+            throw new Error(`API Error: ${response.statusText}`);
+        }
+  
+      // Cast the JSON to our TracksList interface first
+      const data: TracksList = await response.json();
 
-        // Use just the array. Now it matches Promise<Track[]>
-        returnArray.push(...data.tracks.items);
-    }
- 
-    return returnArray;
-
+      // Design by Contract: Always return an array, even if empty)
+      return data.tracks?.items || [];
   } catch (error) {
     console.error('Error fetching tracks:', error);
     throw error;
