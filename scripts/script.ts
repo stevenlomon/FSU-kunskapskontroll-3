@@ -149,7 +149,7 @@ function buildSearchUrl(): string {
     return `${base}?${params.toString()}`;
 }
 
-// Prompt 35: Write an async function called triggerNewSearch. It should start by calling renderLoading from the ViewRenderer. Then in a try/catch block, it initializes `tracks` using fetchAll, passing all keys from FilterState as input argument. It then calls setTracks and renderList with `tracks`.
+// Prompt 36: Write an async function called triggerNewSearch. It should start by calling renderLoading from the ViewRenderer. Then in a try/catch block, it initializes `tracks` using fetchAll, passing all keys from FilterState as input argument. It then calls setTracks and renderList with `tracks`.
 async function triggerNewSearch(): Promise<void> {
     ViewRenderer.renderLoading();
 
@@ -197,6 +197,7 @@ async function init() {
     }
 }
 
+// One Event Delegation block for all clicks
 bodyContainer.addEventListener('click', async (e) => {
     // What did we click?
     // TRACE: Did we click a track card?
@@ -268,6 +269,9 @@ bodyContainer.addEventListener('click', async (e) => {
         init();
     }
 });
+
+// One Event Delegation block for all "changes" (dropdown)
+// Prompt 37 to be added here
 
 // "Power on" our Full Stack app
 window.addEventListener("DOMContentLoaded", init);
