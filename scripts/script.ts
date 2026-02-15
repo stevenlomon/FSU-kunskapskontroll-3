@@ -126,6 +126,12 @@ const ViewRenderer = {
 }
 
 // Prompt 32: Write a buildSearchUrl that has string as return type. It starts by initializing randomLetter using getRandomLetter() and initializing searchTerm conditionally based on FilterState has a query or not, else randomLetter.
+function buildSearchUrl(): string {
+    const randomLetter = getRandomLetter();
+    const searchTerm = FilterState.query || randomLetter;
+    
+    return searchTerm;
+}
 
 // Prompt 12: Write an async function called init that uses a try/catch block to initialize initList using fetchAll and then sets this using setTracks from DataStore and renders the list using renderList. Fill the innerHTML of mainContainer with an appropriate error message in the catch block.
 async function init() {
