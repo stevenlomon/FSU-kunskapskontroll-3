@@ -279,9 +279,11 @@ listViewNav.addEventListener('change', (e) => {
                 FilterState.q = target.value;
                 break;
             case 'genre-select':
+                // Check if they selected "Any!" (value="any") or default
                 FilterState.genre = target.value === 'any' ? '' : target.value;
                 break;
             case 'decade-select':
+                // Use our helper function for decade to align with the Spotify API!
                 FilterState.decade = target.value === 'any' ? '' : convertDecadeFormat(target.value);
                 break;
         }
