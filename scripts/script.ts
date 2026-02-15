@@ -62,6 +62,19 @@ const DataStore = {
     // Ended up not getting used.
 
     // Prompt 40: Add methods to save/load filter state
+    saveFilterStateToStorage(): void {
+        localStorage.setItem('filterState', JSON.stringify(FilterState));
+    },
+
+    loadFilterStateFromStorage(): void {
+        const data = localStorage.getItem('filterState');
+        if (data) {
+            const saved = JSON.parse(data);
+            FilterState.q = saved.q || '';
+            FilterState.genre = saved.genre || '';
+            FilterState.decade = saved.decade || '';
+        }
+    },
 };
 
 const ViewRenderer = {
