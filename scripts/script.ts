@@ -128,6 +128,9 @@ const ViewRenderer = {
 // Prompt 32: Write a buildSearchUrl that has string as return type. It starts by initializing randomLetter using getRandomLetter() and initializing searchTerm conditionally based on FilterState has a query or not, else randomLetter.
 function buildSearchUrl(): string {
     const randomLetter = getRandomLetter();
+
+    // If user typed something, use it. Otherwise, use the random letter.
+    // This is "Design by Contract": the API gets what it expects.
     const searchTerm = FilterState.query || randomLetter;
     
     return searchTerm;
