@@ -125,27 +125,28 @@ const ViewRenderer = {
 }
 
 // Prompt 32: Write a buildSearchUrl that has string as return type. It starts by initializing randomLetter using getRandomLetter() and initializing searchTerm conditionally based on FilterState has a query or not, else randomLetter.
-function buildSearchUrl(): string {
-    const randomLetter = getRandomLetter();
+// function buildSearchUrl(): string {
+//     const randomLetter = getRandomLetter();
 
-    // If user typed something, use it. Otherwise, use the random letter.
-    // This is "Design by Contract": the API gets what it expects.
-    const searchTerm = FilterState.q || randomLetter;
+//     // If user typed something, use it. Otherwise, use the random letter.
+//     // This is "Design by Contract": the API gets what it expects.
+//     const searchTerm = FilterState.q || randomLetter;
 
-    const base = `http://localhost:3000/search`; // localhost for now
+//     const base = `http://localhost:3000/search`; // localhost for now
     
-    // Prompt 33: Initialize the params variable as a `new` `URLSearchParams` object. It hold `q`, `type`, `market`, `limit` and then the rest of the FilterState keys. q is set to SearchTerm. type is 'track' and market is 'SE'. If we have a query, limit is 10, else 2. The last three are derived from FilterState. Return the resulting URL using base and params toString()
-    const params = new URLSearchParams({
-        q: searchTerm,
-        type: 'track',
-        market: 'SE',
-        limit: FilterState.q ? '10' : '2', // 10 for real user search, 2 for the random algorithm
-        genre: FilterState.genre,
-        decade: FilterState.decade,
-    });
+//     // Prompt 33: Initialize the params variable as a `new` `URLSearchParams` object. It hold `q`, `type`, `market`, `limit` and then the rest of the FilterState keys. q is set to SearchTerm. type is 'track' and market is 'SE'. If we have a query, limit is 10, else 2. The last three are derived from FilterState. Return the resulting URL using base and params toString()
+//     const params = new URLSearchParams({
+//         q: searchTerm,
+//         type: 'track',
+//         market: 'SE',
+//         limit: FilterState.q ? '10' : '2', // 10 for real user search, 2 for the random algorithm
+//         genre: FilterState.genre,
+//         decade: FilterState.decade,
+//     });
 
-    return `${base}?${params.toString()}`;
-}
+//     return `${base}?${params.toString()}`;
+// }
+// Ended up not getting used! The "URL building" logic now lives inside of fetchAll!
 
 // Prompt 36: Write an async function called triggerNewSearch. It should start by calling renderLoading from the ViewRenderer. Then in a try/catch block, it initializes `tracks` using fetchAll, passing all keys from FilterState as input argument. It then calls setTracks and renderList with `tracks`.
 async function triggerNewSearch(): Promise<void> {
