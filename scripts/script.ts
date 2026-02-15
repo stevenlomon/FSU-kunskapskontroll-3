@@ -187,14 +187,18 @@ async function init() {
     ViewRenderer.renderLoading();
 
     try {
+        // 1. Token Logic
         // Prompt 18: Use getAccessTokenFromStorage to check to see if we have an Access Token in localStorage. If we don't, call generateAccessToken to generate one and save it to localStorage with saveAccessTokenToStorage
         if (!DataStore.getAccessTokenFromStorage()) {
             const token = await generateAccessToken();
             DataStore.saveAccessTokenToStorage(token.access_token);
 
-            // Prompt 19: Also store an expiration timestamp (current time + 3600ms) in localStorage
-            localStorage.setItem('tokenExpiration', String(Date.now() + 3600));
+            // Prompt 19: Also store an expiration timestamp (current time + (3600 * 1000) ms (an hour)) in localStorage
+            localStorage.setItem('tokenExpiration', String(Date.now() + 3600 * 1000));
         }
+
+        // 2. NEW Load Saved Filters
+
 
         // Fetch initial list and store it as cache in our DataStore
         const initList = await fetchAll();
