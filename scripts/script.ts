@@ -1,5 +1,5 @@
 import { type Track, type TrackDetails, generateAccessToken, fetchAll, fetchById } from "./api.js";
-import { getRandomLetter, isExplicit, convertMillisecondsDuration, convertDecadeFormat } from "./utils.js";
+import { getRandomLetter, isExplicit, convertMillisecondsDuration } from "./utils.js";
 
 const mainContainer = document.getElementById('container');
 if (!mainContainer) {
@@ -284,7 +284,7 @@ listViewNav.addEventListener('change', (e) => {
                 break;
             case 'decade-select':
                 // Use our helper function for decade to align with the Spotify API!
-                FilterState.decade = target.value === 'any' ? '' : convertDecadeFormat(target.value);
+                FilterState.decade = target.value === 'any' ? '' : target.value;
                 break;
         }
 
