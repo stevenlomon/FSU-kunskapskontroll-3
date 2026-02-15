@@ -1,4 +1,5 @@
-# Spotify FindNewMusic Applikation
+# Vibe Salad
+<img width="2876" height="1636" alt="Screenshot from 2026-02-15 18-49-52" src="https://github.com/user-attachments/assets/1a691116-e6dd-461f-b184-bc69ec48f5f2" />
 
 ## Dag 1
 Jag tänker använda Spotifys API för att bygga ut en sida som visar ca 30 random låtar på startsidan med sökfunktionalitet och en "Re-shuffle" knapp för att "shuffla" fram nya random låtar. Denna lilla lista på ca 30 låtar blir the "List view" (första anropet). Och när man klickar på en låt går man till "Detailed view" (andra anropet). Om Spotify gör det lätt kan man säkert lägga till "Songs like these" när man är i detailed view. Sidan kommer stylas med AI som skriver CSS efter prompts. Kommer satsa på typ "minimalistic, sleek, modern but still fun" feel
