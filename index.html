@@ -30,12 +30,22 @@
                     <option value="metal">Metal</option>
                     <option value="any">Any!</option>
                 </select>
-                <!-- To be expanded upon -->
-                <select>
-                    <option value="">Decade</option>
+                <select id="decade-select">
+                    <option value="" disabled selected>Decade</option>
+                    <option value="20s">2020s</option>
+                    <option value="10s">2010s</option>
+                    <option value="00s">2000s</option>
+                    <option value="90s">90s</option>
+                    <option value="80s">80s</option>
+                    <option value="70s">70s</option>
+                    <option value="60s">60s</option>
+                    <option value="any">Any!</option>
                 </select>
-                <select>
-                    <option value="">Explicit</option>
+                <select id="explicit-select">
+                    <option value="" disabled selected>Explicit</option>
+                    <option value="explicit">Only Explicit</option>
+                    <option value="non-explicit">Only Non-explicit</option>
+                    <option value="both">Mix both!</option>
                 </select>
                 <button id="re-shuffle">Re-shuffle! 🎲</button>
             </div>
