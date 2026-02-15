@@ -132,6 +132,8 @@ function buildSearchUrl(): string {
     // If user typed something, use it. Otherwise, use the random letter.
     // This is "Design by Contract": the API gets what it expects.
     const searchTerm = FilterState.query || randomLetter;
+
+    const base = `http://localhost:3000/search`; // localhost for now
     
     return searchTerm;
 }
