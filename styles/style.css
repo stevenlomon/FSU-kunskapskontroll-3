@@ -302,7 +302,8 @@ select:hover {
 }
 
 .fade-back {
-    animation: fadeBack 0.5s ease-out;
+    /* 'forwards' makes the element stay invisible after the animation ends */
+    animation: fadeBack 0.5s ease-out forwards;
 }
 
 /* Prompt 11: Write a hidden class that can be toggled on divs to hide/show them */
