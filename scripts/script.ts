@@ -178,17 +178,34 @@ bodyContainer.addEventListener('click', async (e) => {
         console.log("Back button pressed!");
 
         // The "Fade Back" animation to be added here
-        
+        // 1. Find the element we want to animate out
+        const currentDetailView = mainContainer.querySelector('.track-detailed-view');
 
-        // We retrieve the initial list we cached during init()
-        const tracks = DataStore.getTracks();
+        if (currentDetailView) {
+            // 2. Add your CSS class to trigger the animation
+            currentDetailView.classList.add('fade-back');
 
-        // Re-render the list. State Change: Detailed View -> List View
-        ViewRenderer.renderList(tracks);
+            // 3. Wait for the animation (0.5s) to finish before switching
+            setTimeout(() => {
+                const tracks = DataStore.getTracks();
+                ViewRenderer.renderList(tracks); // State Change: Detailed View -> List View
 
-        // Going back from detailed view should also toggle hidden in the correct nav elements!
-        detailedViewNav.classList.toggle('hidden');
-        listViewNav.classList.toggle('hidden');
+                // Toggle navbars AFTER the view switches
+                detailedViewNav.classList.toggle('hidden');
+                listViewNav.classList.toggle('hidden');
+            }, 450); // 450ms is slightly safer than 500ms to avoid a flash of white
+
+        } else {
+            // We retrieve the initial list we cached during init()
+            const tracks = DataStore.getTracks();
+
+            // Re-render the list. State Change: Detailed View -> List View
+            ViewRenderer.renderList(tracks);
+
+            // Going back from detailed view should also toggle hidden in the correct nav elements!
+            detailedViewNav.classList.toggle('hidden');
+            listViewNav.classList.toggle('hidden');
+        }
     }
 
     // TRACE: Did we click 'Re-shuffle'?
