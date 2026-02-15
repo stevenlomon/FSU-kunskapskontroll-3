@@ -22,4 +22,7 @@ function convertMillisecondsDuration(duration_ms: number): string {
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
+// Prompt 38: Write a helper function that takes `decade` as a string that will be in the format "2020s", "2010s", "2000s", "90s" all the way down to "60s" and converts to the format "2020-2029" for "2020s", "1960-1969" for "60s" etc.
+
+
 export { getRandomLetter, isExplicit, convertMillisecondsDuration }
