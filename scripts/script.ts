@@ -140,7 +140,7 @@ function buildSearchUrl(): string {
         q: searchTerm,
         type: 'track',
         market: 'SE',
-        limit: FilterState.query ? '10' : '2',
+        limit: FilterState.query ? '10' : '2', // 10 for real user search, 2 for the random algorithm
         genre: FilterState.genre,
         decade: FilterState.decade,
         explicit: FilterState.explicit,
