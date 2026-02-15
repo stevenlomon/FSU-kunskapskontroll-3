@@ -135,7 +135,7 @@ function buildSearchUrl(): string {
 
     const base = `http://localhost:3000/search`; // localhost for now
     
-    return searchTerm;
+    // Prompt 33: Initialize the params variable as a `new` `URLSearchParams` object. It hold `q`, `type`, `market`, `limit` and then the rest of the FilterState keys. q is set to SearchTerm. type is 'track' and market is 'SE'. If we have a query, limit is 10, else 2. The last three are derived from FilterState. Return the resulting URL using base and params toString()
 }
 
 // Prompt 12: Write an async function called init that uses a try/catch block to initialize initList using fetchAll and then sets this using setTracks from DataStore and renders the list using renderList. Fill the innerHTML of mainContainer with an appropriate error message in the catch block.
