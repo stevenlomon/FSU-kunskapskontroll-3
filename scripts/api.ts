@@ -100,37 +100,57 @@ async function getValidAccessToken(): Promise<string> {
   return data.access_token;
 }
 
+// We need to update this, I've misunderstood and misinterpreted the Spotify API
 // Prompt 8: Write two async functions called fetchAll (zero input arguments) and fetchById (takes trackId) that both use try/catch blocks to make an await fetch request to a placeholder URL. The catch block should return an error from the requst if available
 async function fetchAll(params: Record<string, string> = {}): Promise<Track[]> {
   const token = await getValidAccessToken();
   const headers = { 'Authorization': 'Bearer ' + token }
   
   // Now uses v2 of Random Fetch: 1 request instead of 5 using `offset`
-  // 1. Determine "Mode"
-  // If we have a query in params, the user is searching. 
-  // If not, we are in "Random Discovery" mode.
+  
+  // 1. Determine Mode & Basic Query
   const isSearchMode = !!params.q;
-
-  // 2. Logic for Random Mode
-  let query: string = params.q || ''; // FIX: Initialize with '' so TS knows strictly that 'query' is a string
+  let query: string = params.q || ''; 
   let offset = 0;
 
   // Prompt 34: Write the logic if we're not in "search mode". Update `query` to be a random letter using getRandomLetter. Update offset by first initializing `maxOffset` to 50 and then using Math.floor, Math.random() and maxOffset.
+  // The code from prompt 34 got overwritten by Gemini when I realized I've interpreted the API wrong in the final stretch
   if (!isSearchMode) {
     query = getRandomLetter();
 
     // Generate a random offset
     // Real Spotify allows up to 1000. Our Dummy Backend has ~100 items.
     // We'll use 50 to be safe for the Dummy, but we can bump this to 900 for real API.
-    const maxOffset = 900;
+
+    // Safety: If we are filtering by genre/decade, the pool of results is smaller.
+    // We lower the random offset to avoid "Index Out of Bounds" (getting 0 results).
+    const hasFilters = params.genre || params.decade;
+    const maxOffset = hasFilters ? 50 : 900;
+
     offset = Math.floor(Math.random() * maxOffset);
+  }
+
+  // 2. Construct the "Advanced" Spotify Query
+  // We append the filters directly to the query string using the "key:value" syntax
+  let spotifyQuery = query;
+
+  if (params.genre) {
+    // Appends " genre:pop"
+    spotifyQuery += ` genre:${params.genre}`;
+  }
+
+  if (params.decade) {
+    // Appends " year:1980-1989"
+    // Note: Spotify uses the keyword 'year' for dates/decades!
+    spotifyQuery += ` year:${params.decade}`;
   }
 
   // 3. Construct the clean URL (The Pragmatic Way)
   // Prompt 35: Initialize searchParams using URLSearchParams with `q`, `type` ('track'), `market` ('SE'), `limit` (10), `offset` (our offset as a string), and then spread the rest of the params keys.
+  // The code from prompt 35 got overwritten by Gemini when I realized I've interpreted the API wrong in the final stretch
+  // 3. Configure parameters
   const searchParams = new URLSearchParams({
-    ...params, // Spread first to allow defaults below to override if needed
-    q: query,
+    q: spotifyQuery, // Use our new combined string
     type: 'track',
     market: 'SE',
     limit: '10',
