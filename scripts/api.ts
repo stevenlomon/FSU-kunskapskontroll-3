@@ -101,7 +101,7 @@ async function getValidAccessToken(): Promise<string> {
 }
 
 // Prompt 8: Write two async functions called fetchAll (zero input arguments) and fetchById (takes trackId) that both use try/catch blocks to make an await fetch request to a placeholder URL. The catch block should return an error from the requst if available
-async function fetchAll(params: Record<string, string>): Promise<Track[]> {
+async function fetchAll(params: Record<string, string> = {}): Promise<Track[]> {
   const token = await getValidAccessToken();
   const headers = { 'Authorization': 'Bearer ' + token }
   
