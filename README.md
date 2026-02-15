@@ -668,3 +668,25 @@ Final day!! Igår blev ändå TypeScript och mycket annat klart. Det sista som h
 <img width="1798" height="1006" alt="Screenshot from 2026-02-15 09-40-09" src="https://github.com/user-attachments/assets/7dc8ba22-1abb-4540-aed2-81c70312c83b" />
 
 Var att the rimit blev hit. Så idag ska jag använda min dummy backend så mycket som möjligt tills jag *måste* testa något med det riktiga API:t. Låter vettigt. Let's go!
+
+...
+
+11:02. Fick precis till duration_ms conversion. Om man kollar på mina challenges som jag satt upp i början av projektet:
+"So the identified little mini challenges will be:
+
+Fetch 30 random songs for the app front page
+"Songs like these" functionality when in Detailed View for a track
+Function to convert duration in milliseconds to the standard "3:28 format" (3m 28s)
+Spinning vinyl disc as the loading UI when the API is "thinking"
+How to remove what is in localStorage after 24 hours
+What else to store in localStorage?
+TypeScript"
+* Vi kör inte 30 utan 10 haha men check ✅
+* "Songs like these" functionality when in Detailed View for a track. Nej. Skräpar detta.
+* Function to convert duration in milliseconds to the standard "3:28 format" (3m 28s). Check ✅
+* Spinning vinyl disc as the loading UI when the API is "thinking". Check ✅
+* "How to remove what is in localStorage after 24 hours". Right. Den här ska jag kolla lite på.
+* "What else to store in localStorage?". Direkt kopplat till filtrena! Vilket blir det jag ska tackla nu här näst
+* TypeScript. Check ✅
+
+Let's go 🚀
