@@ -61,7 +61,7 @@ const DataStore = {
     // Prompt 17: Write a setAccessToken and getAccessToken. 
     // Ended up not getting used.
 
-    // Prompt 40 to be added here
+    // Prompt 40: Add methods to save/load filter state
 };
 
 const ViewRenderer = {
