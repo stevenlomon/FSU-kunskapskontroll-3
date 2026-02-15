@@ -149,6 +149,8 @@ function buildSearchUrl(): string {
     return `${base}?${params.toString()}`;
 }
 
+// Prompt 34 to be written here. We need to update fetchAll first! See PR comment
+
 // Prompt 12: Write an async function called init that uses a try/catch block to initialize initList using fetchAll and then sets this using setTracks from DataStore and renders the list using renderList. Fill the innerHTML of mainContainer with an appropriate error message in the catch block.
 async function init() {
     // Show our Loading State as we initialize the app for the first time!
