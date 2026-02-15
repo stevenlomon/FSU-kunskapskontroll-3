@@ -15,4 +15,4 @@ function isExplicit(exp: boolean): string {
 
 export { getRandomLetter, isExplicit }
 
-// Prompt 30 to be added here
+// Prompt 30: Write a helper function convertMillisecondsDuration that takes `duration_ms` (integer/number) as its input argument, and returns a string on the format `${min_passed}:${seconds_remaining}`. The function should first convert the integer from milliseconds to seconds. Then use modulo with 60 to see how many whole minutes we have and how many leftover seconds. Then construct and return the resulting string.
