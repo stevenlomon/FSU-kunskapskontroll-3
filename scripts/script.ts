@@ -1,5 +1,5 @@
 import { type Track, type TrackDetails, generateAccessToken, fetchAll, fetchById } from "./api.js";
-import { isExplicit } from "./utils.js";
+import { isExplicit, convertMillisecondsDuration } from "./utils.js";
 
 const mainContainer = document.getElementById('container');
 if (!mainContainer) {
@@ -103,7 +103,7 @@ const ViewRenderer = {
                     <h3>${track.artists?.[0]?.name}</h3>
                     <h3>${track.album.name}</h3>
                     <p>${track.album.release_date.substring(0, 4)}</p>
-                    <p>${track.duration_ms}</p>
+                    <p>${convertMillisecondsDuration(track.duration_ms)}</p>
                     <p>${isExplicit(track.explicit)}</p>
                     <button><a href="${track.external_urls.spotify}" target="_blank">Listen on Spotify</a></button>
                 </div>
