@@ -31,4 +31,4 @@ function convertDecadeFormat(decade: string): string {
   return `${startYear}-${endYear}`;
 }
 
-export { getRandomLetter, isExplicit, convertMillisecondsDuration }
+export { getRandomLetter, isExplicit, convertMillisecondsDuration, convertDecadeFormat }
