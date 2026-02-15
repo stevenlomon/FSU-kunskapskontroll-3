@@ -117,6 +117,11 @@ async function fetchAll(params: Record<string, string>): Promise<Track[]> {
     let offset = 0;
 
     // Prompt 34: Write the logic if we're not in "search mode". Update `query` to be a random letter using getRandomLetter. Update offset by first initializing `maxOffset` to 50 and then using Math.floor, Math.random() and maxOffset.
+    if (!isSearchMode) {
+      query = getRandomLetter();
+      const maxOffset = 50;
+      offset = Math.floor(Math.random() * maxOffset);
+    }
 
     for (let i = 0; i < 5; i++) {
         let randomLetter = getRandomLetter();
