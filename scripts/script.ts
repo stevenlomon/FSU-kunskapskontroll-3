@@ -272,6 +272,17 @@ bodyContainer.addEventListener('click', async (e) => {
 
 // One Event Delegation block for all "changes" (dropdown)
 // Prompt 37: Attach a 'change' eventListener to listViewNav. Initialize `target` using e.target `as` HTMLInputElement or HTMLSelectElement. Use target.tagName in an if statement to confirm that e.target is looking at an <input> or <select> element. Make a placeholder switch block in the if statement for now. After the switch block (that is to be implemented), call triggerNewSearch.
+listViewNav.addEventListener('change', (e) => {
+    const target = e.target as HTMLInputElement | HTMLSelectElement;
+
+    if (target.tagName === 'INPUT' || target.tagName === 'SELECT') {
+        switch (target.name) {
+            // To be implemented
+        }
+
+        triggerNewSearch();
+    }
+});
 
 // "Power on" our Full Stack app
 window.addEventListener("DOMContentLoaded", init);
