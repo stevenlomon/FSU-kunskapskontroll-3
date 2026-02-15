@@ -197,8 +197,19 @@ async function init() {
             localStorage.setItem('tokenExpiration', String(Date.now() + 3600 * 1000));
         }
 
-        // 2. NEW Load Saved Filters
+        // 2. NEW Load Saved Filters (just copied from Gemini and not prompted since I'm 99% done and want to be 100% done haha)
+        DataStore.loadFilterStateFromStorage();
 
+        // Restore UI (Update the inputs to match state)
+        const genreSelect = document.getElementById('genre-select') as HTMLSelectElement;
+        const decadeSelect = document.getElementById('decade-select') as HTMLSelectElement;
+        const searchInput = document.getElementById('search-input') as HTMLInputElement;
+
+        // "|| ''" protects us if the state is null/undefined
+        if (genreSelect) genreSelect.value = FilterState.genre || '';
+        if (decadeSelect) decadeSelect.value = FilterState.decade || '';
+        if (searchInput) searchInput.value = FilterState.q || '';
+        
 
         // Fetch initial list and store it as cache in our DataStore
         const initList = await fetchAll();
