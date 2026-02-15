@@ -88,6 +88,29 @@ app.get('/search', async (req: Request, res: Response) => {
   res.json(response);
 });
 
+// GET /tracks/:id - Fetch a single track by ID
+app.get('/tracks/:id', async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  console.log(`[Simulation] 🎵 Fetching details for track ID: ${id}`);
+
+  // 1. Simulate Network Delay (Optional, but adds realism)
+  const delay = Math.floor(Math.random() * 500) + 200; // Faster than search (200-700ms)
+  await new Promise(resolve => setTimeout(resolve, delay));
+
+  // 2. Find the track in our "Database"
+  const track = ALL_TRACKS.find(t => t.id === id);
+
+  // 3. Handle Not Found
+  if (!track) {
+    res.status(404).json({ error: { status: 404, message: "Track not found" } });
+    return;
+  }
+
+  // 4. Return the track
+  res.json(track);
+});
+
 app.listen(PORT, () => {
   console.log(`\n--- Spotify Dummy Backend Running ---`);
   console.log(`Listening at http://localhost:${PORT}`);
