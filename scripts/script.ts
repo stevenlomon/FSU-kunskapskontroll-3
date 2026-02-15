@@ -219,7 +219,6 @@ bodyContainer.addEventListener('click', async (e) => {
         }
     }
 
-    // To be fixed
     // TRACE: Did we click 'Go Back'?
     // Prompt 15: If the id of e.target is 'back-btn', retrieve the initial list we cached with init and re-render it.
     if ((e.target as HTMLElement).id === 'back-btn') {
@@ -274,8 +273,8 @@ listViewNav.addEventListener('change', (e) => {
     const target = e.target as HTMLInputElement | HTMLSelectElement;
 
     if (target.tagName === 'INPUT' || target.tagName === 'SELECT') {
-        switch (target.name) {
-            // To be implemented
+        switch (target.id) {
+            // Prompt 39: Look for 'search-input' (set FilterState's `q` key to target.value and break), 'genre-select' (check if they selected 'any', upon which FilterState's `genre` key is set to an empty string, else target.value), and finally 'decade-select'. If it's this last one, the logic is similar but use convertDecadeFormat before setting FilterState's `decade`.
         }
 
         triggerNewSearch();
