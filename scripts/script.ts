@@ -1,5 +1,5 @@
 import { type Track, type TrackDetails, generateAccessToken, fetchAll, fetchById } from "./api.js";
-import { isExplicit, convertMillisecondsDuration } from "./utils.js";
+import { getRandomLetter, isExplicit, convertMillisecondsDuration } from "./utils.js";
 
 const mainContainer = document.getElementById('container');
 if (!mainContainer) {
@@ -18,6 +18,12 @@ if (!listViewNav) {
     throw new Error("Critical Error: List view container not found in the DOM.");
 }
 
+// Prompt 31: Write a FilterState object that should hold `query`, `genre`, `decade`, and `explicit` as keys, all initialized as empty strings
+const FilterState = {
+    q: '',
+    genre: '',
+    decade: '',
+};
 
 // Prompt 6: Write an object called DataStore that should have an empty array called allTracks, a method getTracks that returns a JSON parsed object from localStorage under the key 'trackData' or an empty array; a method called setTracks that simply takes a tracks object and sets allTracks using `this`; and finally a getTracks method that returns allTracks using `this`.
 const DataStore = {
@@ -118,6 +124,48 @@ const ViewRenderer = {
     }
 }
 
+// Prompt 32: Write a buildSearchUrl that has string as return type. It starts by initializing randomLetter using getRandomLetter() and initializing searchTerm conditionally based on FilterState has a query or not, else randomLetter.
+// function buildSearchUrl(): string {
+//     const randomLetter = getRandomLetter();
+
+//     // If user typed something, use it. Otherwise, use the random letter.
+//     // This is "Design by Contract": the API gets what it expects.
+//     const searchTerm = FilterState.q || randomLetter;
+
+//     const base = `http://localhost:3000/search`; // localhost for now
+    
+//     // Prompt 33: Initialize the params variable as a `new` `URLSearchParams` object. It hold `q`, `type`, `market`, `limit` and then the rest of the FilterState keys. q is set to SearchTerm. type is 'track' and market is 'SE'. If we have a query, limit is 10, else 2. The last three are derived from FilterState. Return the resulting URL using base and params toString()
+//     const params = new URLSearchParams({
+//         q: searchTerm,
+//         type: 'track',
+//         market: 'SE',
+//         limit: FilterState.q ? '10' : '2', // 10 for real user search, 2 for the random algorithm
+//         genre: FilterState.genre,
+//         decade: FilterState.decade,
+//     });
+
+//     return `${base}?${params.toString()}`;
+// }
+// Ended up not getting used! The "URL building" logic now lives inside of fetchAll!
+
+// Prompt 36: Write an async function called triggerNewSearch. It should start by calling renderLoading from the ViewRenderer. Then in a try/catch block, it initializes `tracks` using fetchAll, passing all keys from FilterState as input argument. It then calls setTracks and renderList with `tracks`.
+async function triggerNewSearch(): Promise<void> {
+    ViewRenderer.renderLoading();
+
+    try {
+        const tracks = await fetchAll(FilterState);
+
+        DataStore.setTracks(tracks);
+        ViewRenderer.renderList(tracks);
+    } catch (error) {
+        if (!mainContainer) {
+            console.error("Main element not found");
+            return
+        }
+        mainContainer.innerHTML = `Error during search: ${error}. Please try again.`;
+    }
+}
+
 // Prompt 12: Write an async function called init that uses a try/catch block to initialize initList using fetchAll and then sets this using setTracks from DataStore and renders the list using renderList. Fill the innerHTML of mainContainer with an appropriate error message in the catch block.
 async function init() {
     // Show our Loading State as we initialize the app for the first time!
@@ -148,6 +196,7 @@ async function init() {
     }
 }
 
+// One Event Delegation block for all clicks
 bodyContainer.addEventListener('click', async (e) => {
     // What did we click?
     // TRACE: Did we click a track card?
@@ -171,7 +220,6 @@ bodyContainer.addEventListener('click', async (e) => {
         }
     }
 
-    // To be fixed
     // TRACE: Did we click 'Go Back'?
     // Prompt 15: If the id of e.target is 'back-btn', retrieve the initial list we cached with init and re-render it.
     if ((e.target as HTMLElement).id === 'back-btn') {
@@ -217,6 +265,31 @@ bodyContainer.addEventListener('click', async (e) => {
 
         // Simply re-initialize the list! Works for now since our init is rather simple
         init();
+    }
+});
+
+// One Event Delegation block for all "changes" (dropdown)
+// Prompt 37: Attach a 'change' eventListener to listViewNav. Initialize `target` using e.target `as` HTMLInputElement or HTMLSelectElement. Use target.tagName in an if statement to confirm that e.target is looking at an <input> or <select> element. Make a placeholder switch block in the if statement for now. After the switch block (that is to be implemented), call triggerNewSearch.
+listViewNav.addEventListener('change', (e) => {
+    const target = e.target as HTMLInputElement | HTMLSelectElement;
+
+    if (target.tagName === 'INPUT' || target.tagName === 'SELECT') {
+        switch (target.id) {
+            // Prompt 39: Look for 'search-input' (set FilterState's `q` key to target.value and break), 'genre-select' (check if they selected 'any', upon which FilterState's `genre` key is set to an empty string, else target.value), and finally 'decade-select'. If it's this last one, the logic is similar but use convertDecadeFormat before setting FilterState's `decade`.
+            case 'search-input':
+                FilterState.q = target.value;
+                break;
+            case 'genre-select':
+                // Check if they selected "Any!" (value="any") or default
+                FilterState.genre = target.value === 'any' ? '' : target.value;
+                break;
+            case 'decade-select':
+                // Use our helper function for decade to align with the Spotify API!
+                FilterState.decade = target.value === 'any' ? '' : target.value;
+                break;
+        }
+
+        triggerNewSearch();
     }
 });
 

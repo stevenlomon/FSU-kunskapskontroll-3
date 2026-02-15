@@ -20,15 +20,26 @@
                 <button id="back-btn">⬅️ Go back</button>
             </div>
             <div class="navbar-list-view">
-                <input type="text">
-                <select>
-                    <option value="">Genre</option>
+                <input type="text" id="search-input" placeholder="Search for a vibe...">
+                <select id="genre-select">
+                    <option value="" disabled selected>Genre</option>
+                    <option value="pop">Pop</option>
+                    <option value="hip-hop">Hip Hop</option>
+                    <option value="electronic">Electronic</option>
+                    <option value="rock">Rock</option>
+                    <option value="metal">Metal</option>
+                    <option value="any">Any!</option>
                 </select>
-                <select>
-                    <option value="">Decade</option>
-                </select>
-                <select>
-                    <option value="">Explicit</option>
+                <select id="decade-select">
+                    <option value="" disabled selected>Decade</option>
+                    <option value="2020-2029">2020s</option>
+                    <option value="2010-2019">2010s</option>
+                    <option value="2000-2009">2000s</option>
+                    <option value="1990-1999">90s</option>
+                    <option value="1980-1989">80s</option>
+                    <option value="1970-1979">70s</option>
+                    <option value="1960-1969">60s</option>
+                    <option value="any">Any!</option>
                 </select>
                 <button id="re-shuffle">Re-shuffle! 🎲</button>
             </div>

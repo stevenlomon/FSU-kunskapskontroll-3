@@ -22,4 +22,19 @@ function convertMillisecondsDuration(duration_ms: number): string {
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
+// Prompt 38: Write a helper function that takes `decade` as a string that will be in the format "20s", "10s", "00s", "90s" all the way down to "60s" and converts to the format "2020-2029" for "20s", "1960-1969" for "60s" etc.
+// function convertDecadeFormat(decade: string): string {
+//   const decadeNum = parseInt(decade); // "90s" -> 90, "10s" -> 10
+  
+//   // Logic: If the number is small (like 00, 10, 20), it's the 2000s. 
+//   // If it's big (60, 70, 80, 90), it's the 1900s.
+//   const baseYear = decadeNum < 30 ? 2000 : 1900;
+  
+//   const startYear = baseYear + decadeNum;
+//   const endYear = startYear + 9;
+  
+//   return `${startYear}-${endYear}`;
+// }
+// Ended up not getting used since I realized we can just change the HTML option values to align with the API from the get go
+
 export { getRandomLetter, isExplicit, convertMillisecondsDuration }

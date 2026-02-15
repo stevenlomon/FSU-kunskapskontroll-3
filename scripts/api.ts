@@ -101,39 +101,60 @@ async function getValidAccessToken(): Promise<string> {
 }
 
 // Prompt 8: Write two async functions called fetchAll (zero input arguments) and fetchById (takes trackId) that both use try/catch blocks to make an await fetch request to a placeholder URL. The catch block should return an error from the requst if available
-async function fetchAll(): Promise<Track[]> {
+async function fetchAll(params: Record<string, string> = {}): Promise<Track[]> {
+  const token = await getValidAccessToken();
+  const headers = { 'Authorization': 'Bearer ' + token }
+  
+  // Now uses v2 of Random Fetch: 1 request instead of 5 using `offset`
+  // 1. Determine "Mode"
+  // If we have a query in params, the user is searching. 
+  // If not, we are in "Random Discovery" mode.
+  const isSearchMode = !!params.q;
+
+  // 2. Logic for Random Mode
+  let query: string = params.q || ''; // FIX: Initialize with '' so TS knows strictly that 'query' is a string
+  let offset = 0;
+
+  // Prompt 34: Write the logic if we're not in "search mode". Update `query` to be a random letter using getRandomLetter. Update offset by first initializing `maxOffset` to 50 and then using Math.floor, Math.random() and maxOffset.
+  if (!isSearchMode) {
+    query = getRandomLetter();
+
+    // Generate a random offset
+    // Real Spotify allows up to 1000. Our Dummy Backend has ~100 items.
+    // We'll use 50 to be safe for the Dummy, but we can bump this to 900 for real API.
+    const maxOffset = 50;
+    offset = Math.floor(Math.random() * maxOffset);
+  }
+
+  // 3. Construct the clean URL (The Pragmatic Way)
+  // Prompt 35: Initialize searchParams using URLSearchParams with `q`, `type` ('track'), `market` ('SE'), `limit` (10), `offset` (our offset as a string), and then spread the rest of the params keys.
+  const searchParams = new URLSearchParams({
+    ...params, // Spread first to allow defaults below to override if needed
+    q: query,
+    type: 'track',
+    market: 'SE',
+    limit: '10',
+    offset: offset.toString(),
+  });
+
+  // 4. The single elegant request
   try {
-    const token = await getValidAccessToken();
-    const headers = { 'Authorization': 'Bearer ' + token }
-    const returnArray = [];
+    // Pass the headers in the options object
+    // https://api.spotify.com/v1/search?q= is the real endpoint
+    const response = await fetch(`http://localhost:3000/search?${searchParams.toString()}`, {
+      method: 'GET',
+      headers: headers
+    });
 
-    // v1 of Random Fetch
-    // We want to fetch 10 random songs. For v1, the ooga-booga algorithm I've cooked up is:
-    // 1. Grab a random letter of the alphabet
-    // 2. Do 2 fetch requests with this letter "as q"
-    // 3. Append to returnArray
-    // 4. Repeat 5 times
+    if (!response.ok) {
+          throw new Error(`API Error: ${response.statusText}`);
+      }
 
-    for (let i = 0; i < 5; i++) {
-        let randomLetter = getRandomLetter();
-        console.log("Random letter: ", randomLetter);
+    // Cast the JSON to our TracksList interface first
+    const data: TracksList = await response.json();
 
-        // Pass the headers in the options object
-        // https://api.spotify.com/v1/search?q= is the real endpoint
-        const response = await fetch(`http://localhost:3000/search?q=${randomLetter}&type=track&market=SE&limit=2`, {
-          method: 'GET',
-          headers: headers
-        });
-    
-        // Cast the JSON to our TracksList interface first
-        const data: TracksList = await response.json();
-
-        // Use just the array. Now it matches Promise<Track[]>
-        returnArray.push(...data.tracks.items);
-    }
- 
-    return returnArray;
-
+    // Design by Contract: Always return an array, even if empty)
+    return data.tracks?.items || [];
   } catch (error) {
     console.error('Error fetching tracks:', error);
     throw error;
