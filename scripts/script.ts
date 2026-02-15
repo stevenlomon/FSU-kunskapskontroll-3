@@ -60,6 +60,8 @@ const DataStore = {
 
     // Prompt 17: Write a setAccessToken and getAccessToken. 
     // Ended up not getting used.
+
+    // Prompt 40 to be added here
 };
 
 const ViewRenderer = {
