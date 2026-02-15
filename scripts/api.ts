@@ -112,7 +112,7 @@ async function fetchAll(params: Record<string, string>): Promise<Track[]> {
   const isSearchMode = !!params.q;
 
   // 2. Logic for Random Mode
-  let query = params.q;
+  let query: string = params.q || ''; // FIX: Initialize with '' so TS knows strictly that 'query' is a string
   let offset = 0;
 
   // Prompt 34: Write the logic if we're not in "search mode". Update `query` to be a random letter using getRandomLetter. Update offset by first initializing `maxOffset` to 50 and then using Math.floor, Math.random() and maxOffset.
