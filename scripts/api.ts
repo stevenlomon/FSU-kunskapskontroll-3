@@ -102,60 +102,59 @@ async function getValidAccessToken(): Promise<string> {
 
 // Prompt 8: Write two async functions called fetchAll (zero input arguments) and fetchById (takes trackId) that both use try/catch blocks to make an await fetch request to a placeholder URL. The catch block should return an error from the requst if available
 async function fetchAll(params: Record<string, string>): Promise<Track[]> {
+  const token = await getValidAccessToken();
+  const headers = { 'Authorization': 'Bearer ' + token }
+  
+  // Now uses v2 of Random Fetch: 1 request instead of 5 using `offset`
+  // 1. Determine "Mode"
+  // If we have a query in params, the user is searching. 
+  // If not, we are in "Random Discovery" mode.
+  const isSearchMode = !!params.q;
+
+  // 2. Logic for Random Mode
+  let query = params.q;
+  let offset = 0;
+
+  // Prompt 34: Write the logic if we're not in "search mode". Update `query` to be a random letter using getRandomLetter. Update offset by first initializing `maxOffset` to 50 and then using Math.floor, Math.random() and maxOffset.
+  if (!isSearchMode) {
+    query = getRandomLetter();
+
+    // Generate a random offset
+    // Real Spotify allows up to 1000. Our Dummy Backend has ~100 items.
+    // We'll use 50 to be safe for the Dummy, but we can bump this to 900 for real API.
+    const maxOffset = 50;
+    offset = Math.floor(Math.random() * maxOffset);
+  }
+
+  // 3. Construct the clean URL (The Pragmatic Way)
+  // Prompt 35: Initialize searchParams using URLSearchParams with `q`, `type` ('track'), `market` ('SE'), `limit` (10), `offset` (our offset as a string), and then spread the rest of the params keys.
+  const searchParams = new URLSearchParams({
+    q: query,
+    type: 'track',
+    market: 'SE',
+    limit: '10',
+    offset: offset.toString(),
+    ...params
+  });
+
+  // 4. The single elegant request
   try {
-    const token = await getValidAccessToken();
-    const headers = { 'Authorization': 'Bearer ' + token }
-    
-    // Now uses v2 of Random Fetch: 1 request instead of 5 using `offset`
-    // 1. Determine "Mode"
-    // If we have a query in params, the user is searching. 
-    // If not, we are in "Random Discovery" mode.
-    const isSearchMode = !!params.q;
-
-    // 2. Logic for Random Mode
-    let query = params.q;
-    let offset = 0;
-
-    // Prompt 34: Write the logic if we're not in "search mode". Update `query` to be a random letter using getRandomLetter. Update offset by first initializing `maxOffset` to 50 and then using Math.floor, Math.random() and maxOffset.
-    if (!isSearchMode) {
-      query = getRandomLetter();
-
-      // Generate a random offset
-      // Real Spotify allows up to 1000. Our Dummy Backend has ~100 items.
-      // We'll use 50 to be safe for the Dummy, but we can bump this to 900 for real API.
-      const maxOffset = 50;
-      offset = Math.floor(Math.random() * maxOffset);
-    }
-
-    // 3. Construct the clean URL (The Pragmatic Way)
-    // Prompt 35: Initialize searchParams using URLSearchParams with `q`, `type` ('track'), `market` ('SE'), `limit` (10), `offset` (our offset as a string), and then spread the rest of the params keys.
-    const searchParams = new URLSearchParams({
-      q: query,
-      type: 'track',
-      market: 'SE',
-      limit: '10',
-      offset: offset.toString(),
-      ...params
+    // Pass the headers in the options object
+    // https://api.spotify.com/v1/search?q= is the real endpoint
+    const response = await fetch(`http://localhost:3000/search?${searchParams.toString()}`, {
+      method: 'GET',
+      headers: headers
     });
 
-    // 4. The single elegant request
-    try {
-      // Pass the headers in the options object
-      // https://api.spotify.com/v1/search?q= is the real endpoint
-      const response = await fetch(`http://localhost:3000/search?${searchParams.toString()}`, {
-        method: 'GET',
-        headers: headers
-      });
+    if (!response.ok) {
+          throw new Error(`API Error: ${response.statusText}`);
+      }
 
-      if (!response.ok) {
-            throw new Error(`API Error: ${response.statusText}`);
-        }
-  
-      // Cast the JSON to our TracksList interface first
-      const data: TracksList = await response.json();
+    // Cast the JSON to our TracksList interface first
+    const data: TracksList = await response.json();
 
-      // Design by Contract: Always return an array, even if empty)
-      return data.tracks?.items || [];
+    // Design by Contract: Always return an array, even if empty)
+    return data.tracks?.items || [];
   } catch (error) {
     console.error('Error fetching tracks:', error);
     throw error;
