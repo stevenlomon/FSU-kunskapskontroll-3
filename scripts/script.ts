@@ -275,6 +275,15 @@ listViewNav.addEventListener('change', (e) => {
     if (target.tagName === 'INPUT' || target.tagName === 'SELECT') {
         switch (target.id) {
             // Prompt 39: Look for 'search-input' (set FilterState's `q` key to target.value and break), 'genre-select' (check if they selected 'any', upon which FilterState's `genre` key is set to an empty string, else target.value), and finally 'decade-select'. If it's this last one, the logic is similar but use convertDecadeFormat before setting FilterState's `decade`.
+            case 'search-input':
+                FilterState.q = target.value;
+                break;
+            case 'genre-select':
+                FilterState.genre = target.value === 'any' ? '' : target.value;
+                break;
+            case 'decade-select':
+                FilterState.decade = target.value === 'any' ? '' : convertDecadeFormat(target.value);
+                break;
         }
 
         triggerNewSearch();
