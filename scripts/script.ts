@@ -23,7 +23,6 @@ const FilterState = {
     q: '',
     genre: '',
     decade: '',
-    explicit: '',
 };
 
 // Prompt 6: Write an object called DataStore that should have an empty array called allTracks, a method getTracks that returns a JSON parsed object from localStorage under the key 'trackData' or an empty array; a method called setTracks that simply takes a tracks object and sets allTracks using `this`; and finally a getTracks method that returns allTracks using `this`.
@@ -143,7 +142,6 @@ function buildSearchUrl(): string {
         limit: FilterState.q ? '10' : '2', // 10 for real user search, 2 for the random algorithm
         genre: FilterState.genre,
         decade: FilterState.decade,
-        explicit: FilterState.explicit,
     });
 
     return `${base}?${params.toString()}`;
