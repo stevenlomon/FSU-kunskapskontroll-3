@@ -101,18 +101,22 @@ async function getValidAccessToken(): Promise<string> {
 }
 
 // Prompt 8: Write two async functions called fetchAll (zero input arguments) and fetchById (takes trackId) that both use try/catch blocks to make an await fetch request to a placeholder URL. The catch block should return an error from the requst if available
-async function fetchAll(): Promise<Track[]> {
+async function fetchAll(params: Record<string, string>): Promise<Track[]> {
   try {
     const token = await getValidAccessToken();
     const headers = { 'Authorization': 'Bearer ' + token }
-    const returnArray = [];
+    
+    // Now uses v2 of Random Fetch: 1 request instead of 5 using `offset`
+    // 1. Determine "Mode"
+    // If we have a query in params, the user is searching. 
+    // If not, we are in "Random Discovery" mode.
+    const isSearchMode = !!params.q;
 
-    // v1 of Random Fetch
-    // We want to fetch 10 random songs. For v1, the ooga-booga algorithm I've cooked up is:
-    // 1. Grab a random letter of the alphabet
-    // 2. Do 2 fetch requests with this letter "as q"
-    // 3. Append to returnArray
-    // 4. Repeat 5 times
+    // 2. Logic for Random Mode
+    let query = params.q;
+    let offset = 0;
+
+    // Prompt 34: Write the logic if we're not in "search mode". Update `query` to be a random letter using getRandomLetter. Update offset by first initializing `maxOffset` to 50 and then using Math.floor, Math.random() and maxOffset.
 
     for (let i = 0; i < 5; i++) {
         let randomLetter = getRandomLetter();
