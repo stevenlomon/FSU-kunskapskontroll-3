@@ -140,8 +140,7 @@ async function fetchAll(params: Record<string, string> = {}): Promise<Track[]> {
   // 4. The single elegant request
   try {
     // Pass the headers in the options object
-    // https://api.spotify.com/v1/search?q= is the real endpoint
-    const response = await fetch(`http://localhost:3000/search?${searchParams.toString()}`, {
+    const response = await fetch(`https://api.spotify.com/v1/search?${searchParams.toString()}`, {
       method: 'GET',
       headers: headers
     });
@@ -167,7 +166,7 @@ async function fetchById(trackId: string): Promise<TrackDetails> {
     const headers = { 'Authorization': 'Bearer ' + token }
     
     // https://api.spotify.com/v1/tracks/${trackId} is the real endpoint
-    const response = await fetch(`http://localhost:3000/tracks/${trackId}`, {
+    const response = await fetch(`https://api.spotify.com/v1/tracks/${trackId}`, {
         method: 'GET',
         headers: headers
     });
