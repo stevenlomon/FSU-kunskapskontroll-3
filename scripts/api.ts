@@ -119,7 +119,8 @@ async function fetchAll(): Promise<Track[]> {
         console.log("Random letter: ", randomLetter);
 
         // Pass the headers in the options object
-        const response = await fetch(`https://api.spotify.com/v1/search?q=${randomLetter}&type=track&market=SE&limit=2`, {
+        // https://api.spotify.com/v1/search?q= is the real endpoint
+        const response = await fetch(`http://localhost:3000/search?q=${randomLetter}&type=track&market=SE&limit=2`, {
           method: 'GET',
           headers: headers
         });
@@ -144,7 +145,8 @@ async function fetchById(trackId: string): Promise<TrackDetails> {
     const token = await getValidAccessToken();
     const headers = { 'Authorization': 'Bearer ' + token }
     
-    const response = await fetch(`https://api.spotify.com/v1/tracks/${trackId}`, {
+    // https://api.spotify.com/v1/tracks/${trackId} is the real endpoint
+    const response = await fetch(`http://localhost:3000/tracks/${trackId}`, {
         method: 'GET',
         headers: headers
     });

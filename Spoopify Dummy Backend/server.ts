@@ -34,8 +34,8 @@ const buildPageUrl = (baseUrl: string, query: string, type: string, limit: numbe
 // --- Routes ---
 
 app.get('/search', async (req: Request, res: Response) => {
-  const minDelay = 3000;
-  const maxDelay = 6000;
+  const minDelay = 500;
+  const maxDelay = 1000;
   const delay = Math.floor(Math.random() * (maxDelay - minDelay + 1) + minDelay);
 
   console.log(`[Simulation] 🐢 Spinning the vinyl... delaying response by ${delay}ms`);
