@@ -23,9 +23,9 @@ function convertMillisecondsDuration(duration_ms: number): string {
 }
 
 // Prompt 38: Write a helper function that takes `decade` as a string that will be in the format "20s", "10s", "00s", "90s" all the way down to "60s" and converts to the format "2020-2029" for "20s", "1960-1969" for "60s" etc.
-function convertDecade(decade: string): string {
+function convertDecadeFormat(decade: string): string {
   const decadeNum = parseInt(decade);
-  const startYear = decadeNum < 100 ? 1900 + decadeNum : decadeNum;
+  const startYear = 1900 + decadeNum;
   const endYear = startYear + 9;
   
   return `${startYear}-${endYear}`;
