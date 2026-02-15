@@ -661,3 +661,10 @@ Let's get going 🚀
 
 # Day 6
 Vi.. we didn't get going very far så att säga haha. Inte en enda commit igår pga circumstances. Men jag har en klar bild av vad jag behöver göra nu. Ska bli klar med denna PR, merge it, och sen tacklar jag the inevitable TypeScript re-factor innan jag skriver resten i TypeScipt
+
+# Day 7
+Final day!! Igår blev ändå TypeScript och mycket annat klart. Det sista som hände dock...
+
+<img width="1798" height="1006" alt="Screenshot from 2026-02-15 09-40-09" src="https://github.com/user-attachments/assets/7dc8ba22-1abb-4540-aed2-81c70312c83b" />
+
+Var att the rimit blev hit. Så idag ska jag använda min dummy backend så mycket som möjligt tills jag *måste* testa något med det riktiga API:t. Låter vettigt. Let's go!
