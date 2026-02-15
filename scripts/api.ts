@@ -129,12 +129,12 @@ async function fetchAll(params: Record<string, string>): Promise<Track[]> {
   // 3. Construct the clean URL (The Pragmatic Way)
   // Prompt 35: Initialize searchParams using URLSearchParams with `q`, `type` ('track'), `market` ('SE'), `limit` (10), `offset` (our offset as a string), and then spread the rest of the params keys.
   const searchParams = new URLSearchParams({
+    ...params, // Spread first to allow defaults below to override if needed
     q: query,
     type: 'track',
     market: 'SE',
     limit: '10',
     offset: offset.toString(),
-    ...params
   });
 
   // 4. The single elegant request
