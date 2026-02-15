@@ -60,6 +60,21 @@ const DataStore = {
 
     // Prompt 17: Write a setAccessToken and getAccessToken. 
     // Ended up not getting used.
+
+    // Prompt 40: Add methods to save/load filter state
+    saveFilterStateToStorage(): void {
+        localStorage.setItem('filterState', JSON.stringify(FilterState));
+    },
+
+    loadFilterStateFromStorage(): void {
+        const data = localStorage.getItem('filterState');
+        if (data) {
+            const saved = JSON.parse(data);
+            FilterState.q = saved.q || '';
+            FilterState.genre = saved.genre || '';
+            FilterState.decade = saved.decade || '';
+        }
+    },
 };
 
 const ViewRenderer = {
@@ -172,14 +187,29 @@ async function init() {
     ViewRenderer.renderLoading();
 
     try {
+        // 1. Token Logic
         // Prompt 18: Use getAccessTokenFromStorage to check to see if we have an Access Token in localStorage. If we don't, call generateAccessToken to generate one and save it to localStorage with saveAccessTokenToStorage
         if (!DataStore.getAccessTokenFromStorage()) {
             const token = await generateAccessToken();
             DataStore.saveAccessTokenToStorage(token.access_token);
 
-            // Prompt 19: Also store an expiration timestamp (current time + 3600ms) in localStorage
-            localStorage.setItem('tokenExpiration', String(Date.now() + 3600));
+            // Prompt 19: Also store an expiration timestamp (current time + (3600 * 1000) ms (an hour)) in localStorage
+            localStorage.setItem('tokenExpiration', String(Date.now() + 3600 * 1000));
         }
+
+        // 2. NEW Load Saved Filters (just copied from Gemini and not prompted since I'm 99% done and want to be 100% done haha)
+        DataStore.loadFilterStateFromStorage();
+
+        // Restore UI (Update the inputs to match state)
+        const genreSelect = document.getElementById('genre-select') as HTMLSelectElement;
+        const decadeSelect = document.getElementById('decade-select') as HTMLSelectElement;
+        const searchInput = document.getElementById('search-input') as HTMLInputElement;
+
+        // "|| ''" protects us if the state is null/undefined
+        if (genreSelect) genreSelect.value = FilterState.genre || '';
+        if (decadeSelect) decadeSelect.value = FilterState.decade || '';
+        if (searchInput) searchInput.value = FilterState.q || '';
+        
 
         // Fetch initial list and store it as cache in our DataStore
         const initList = await fetchAll();
@@ -289,6 +319,7 @@ listViewNav.addEventListener('change', (e) => {
                 break;
         }
 
+        DataStore.saveFilterStateToStorage(); // Use our new function to save FilterState to localStorage!
         triggerNewSearch();
     }
 });
