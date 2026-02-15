@@ -1,5 +1,5 @@
 // db.ts
-import { SpotifyTrack } from "./types";
+import { SpotifyTrack } from "./types"; // Standard import
 
 const ADJECTIVES = ["Dark", "Bright", "Midnight", "Summer", "Neon", "Broken", "Happy", "Silent", "Loud", "Electric"];
 const NOUNS = ["Memories", "Dreams", "Love", "Echoes", "Vibes", "Thoughts", "Winds", "Waves", "Sky", "Road"];
@@ -20,6 +20,7 @@ export const getDummyTracks = (): SpotifyTrack[] => {
   const tracks: SpotifyTrack[] = [];
 
   for (let i = 0; i < 100; i++) {
+    // No more strict null checks required here!
     const artistName = ARTISTS[i % ARTISTS.length];
     const trackName = `${ADJECTIVES[i % ADJECTIVES.length]} ${NOUNS[i % NOUNS.length]}`;
     const trackId = generateId(22);
@@ -55,8 +56,8 @@ export const getDummyTracks = (): SpotifyTrack[] => {
       }],
       available_markets: ["US", "SE", "GB"],
       disc_number: 1,
-      duration_ms: 180000 + (i * 1000), // Varying duration
-      explicit: i % 3 === 0, // Every 3rd song is explicit
+      duration_ms: 180000 + (i * 1000), 
+      explicit: i % 3 === 0, 
       external_ids: { isrc: `USXYZ${i.toString().padStart(7, '0')}` },
       external_urls: { spotify: `https://open.spotify.com/track/${trackId}` },
       href: `https://api.spotify.com/v1/tracks/${trackId}`,
