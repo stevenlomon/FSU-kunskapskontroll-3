@@ -690,3 +690,10 @@ TypeScript"
 * TypeScript. Check ✅
 
 Let's go 🚀
+
+...
+
+18:06. KLAAAARRRRRRRRRRRRRR!!!!!!!
+Det blev matigt nu sista timmarna. Det blev det. Det är så mycket jag vill dyka in i och förstå och implementera. Debouncing och att rensa localStorage efter 24h bara för att nämna två utav dem. Det är så mycket av det jag gjort nu för första gången som kommer marinera in the back of my mind också som jag verkligen ser fram emot att stärka ju mer jga gör det!
+
+Men jag är supernöjd med detta jag nu lämnar in! 🚀
