@@ -122,7 +122,7 @@ async function fetchAll(params: Record<string, string> = {}): Promise<Track[]> {
     // Generate a random offset
     // Real Spotify allows up to 1000. Our Dummy Backend has ~100 items.
     // We'll use 50 to be safe for the Dummy, but we can bump this to 900 for real API.
-    const maxOffset = 50;
+    const maxOffset = 900;
     offset = Math.floor(Math.random() * maxOffset);
   }
 
